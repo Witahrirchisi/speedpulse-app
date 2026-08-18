@@ -125,7 +125,7 @@
       color: var(--text-main);
     }
 
-    /* DYNAMIC REAL OTA UPGRADE BUTTON (HIDDEN BY DEFAULT UNTIL GITHUB TELLS US) */
+    /* DYNAMIC REAL GITHUB OTA UPGRADE BUTTON */
     .real-upgrade-pill {
       display: none;
       align-items: center;
@@ -1163,18 +1163,21 @@
       settingsVersionLabel.innerText = `v${currentInstalledVersion} (O'rnatilgan)`;
     }
 
-    // REAL GITHUB OTA CHECK FUNCTION
+    // REAL GITHUB OTA CHECK WITH CONTENTS API FALLBACK
     async function checkForRealUpdates(isUserInitiated = false) {
       if (isUserInitiated) {
         showToast("GitHub'dan yangilanishlar tekshirilmoqda...");
       }
 
-      const manifestUrl = "https://raw.githubusercontent.com/Witahrirchisi/speedpulse-app/main/version.json?t=" + Date.now();
+      const apiUrl = "https://api.github.com/repos/Witahrirchisi/speedpulse-app/contents/version.json?t=" + Date.now();
 
       try {
-        const response = await fetch(manifestUrl, { cache: 'no-store' });
+        const response = await fetch(apiUrl, { cache: 'no-store' });
         if (response.ok) {
-          const remoteData = await response.json();
+          const apiJson = await response.json();
+          // GitHub contents API base64 decode
+          const decodedStr = decodeURIComponent(escape(atob(apiJson.content.replace(/\s/g, ''))));
+          const remoteData = JSON.parse(decodedStr);
           const remoteVersion = remoteData.version;
 
           if (isVersionHigher(remoteVersion, currentInstalledVersion)) {
