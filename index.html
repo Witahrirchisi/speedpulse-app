@@ -56,19 +56,21 @@
       color: var(--text-main);
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       overflow: hidden;
+      font-size: 14px;
     }
 
+    /* MOBIL ERGONOMIKA STANDARTLARI (Apple HIG & Material 3) */
     .app-frame {
       position: relative;
-      width: 100%;
-      height: 100%;
+      width: 100vw;
+      height: 100vh;
       height: 100dvh;
       display: flex;
       flex-direction: column;
       background-color: var(--bg-base);
       overflow: hidden;
-      padding-top: env(safe-area-inset-top, 0px);
-      padding-bottom: env(safe-area-inset-bottom, 0px);
+      padding-top: max(14px, env(safe-area-inset-top, 0px));
+      padding-bottom: max(16px, env(safe-area-inset-bottom, 0px));
     }
 
     @media (min-width: 600px) {
@@ -89,7 +91,7 @@
     }
 
     .top-system-bar {
-      padding: 14px 18px 8px;
+      padding: 10px 16px 8px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -104,8 +106,8 @@
     }
 
     .brand-icon-box {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 12px;
       background: var(--neu-convex);
       box-shadow: var(--neu-flat);
@@ -123,21 +125,23 @@
       color: var(--text-main);
     }
 
+    /* DYNAMIC REAL OTA UPGRADE BUTTON (HIDDEN BY DEFAULT UNTIL GITHUB TELLS US) */
     .real-upgrade-pill {
-      display: inline-flex;
+      display: none;
       align-items: center;
       gap: 6px;
-      padding: 6px 14px;
+      padding: 8px 14px;
+      min-height: 36px;
       border-radius: 999px;
-      background: var(--accent-blue);
-      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: #2563eb;
+      border: 1px solid rgba(255, 255, 255, 0.3);
       color: #ffffff;
       font-size: 11.5px;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.5);
       transform-origin: center right;
-      animation: pulseUpgrade 2.2s infinite ease-in-out;
+      animation: pulseUpgrade 2s infinite ease-in-out;
     }
 
     @keyframes pulseUpgrade {
@@ -150,13 +154,14 @@
     }
 
     .status-badge-clean {
-      display: none;
+      display: flex;
       font-size: 11px;
       font-weight: 600;
       color: var(--text-muted);
       align-items: center;
       gap: 6px;
-      padding: 5px 12px;
+      padding: 6px 12px;
+      min-height: 32px;
       background: var(--bg-surface);
       box-shadow: var(--neu-flat);
       border: 1px solid var(--border-subtle);
@@ -182,7 +187,7 @@
       inset: 0;
       overflow-y: auto;
       overflow-x: hidden;
-      padding: 6px 16px 130px;
+      padding: 6px 16px calc(90px + env(safe-area-inset-bottom, 0px));
       opacity: 0;
       pointer-events: none;
       visibility: hidden;
@@ -202,7 +207,7 @@
       transform: translateY(0);
     }
 
-    /* 3D OWNER PROFILE CARD */
+    /* 3D OWNER PROFILE CARD (48dp+ TOUCH TARGET) */
     .owner-profile-card {
       position: relative;
       background: var(--bg-surface);
@@ -210,6 +215,7 @@
       border: 1px solid var(--border-subtle);
       border-radius: 22px;
       padding: 12px 16px;
+      min-height: 72px;
       margin-bottom: 12px;
       display: flex;
       align-items: center;
@@ -220,14 +226,14 @@
     }
 
     .owner-profile-card:active {
-      transform: scale(0.96);
+      transform: scale(0.97);
       box-shadow: var(--neu-pressed);
     }
 
     .owner-avatar-container {
       position: relative;
-      width: 54px;
-      height: 54px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
       background: var(--bg-base);
       box-shadow: var(--neu-inset);
@@ -278,8 +284,8 @@
     }
 
     .owner-tg-badge {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       background: var(--bg-base);
       box-shadow: var(--neu-inset);
@@ -327,8 +333,8 @@
 
     .neu-dial-recessed {
       position: relative;
-      width: 190px;
-      height: 190px;
+      width: 180px;
+      height: 180px;
       border-radius: 50%;
       background: var(--bg-base);
       box-shadow: var(--neu-inset);
@@ -373,7 +379,7 @@
 
     .live-speed-value {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 46px;
+      font-size: 44px;
       font-weight: 800;
       color: var(--text-main);
       line-height: 1;
@@ -407,6 +413,7 @@
 
     .neu-tactile-btn {
       width: 100%;
+      min-height: 48px;
       padding: 14px;
       background: var(--neu-convex);
       color: #ffffff;
@@ -463,9 +470,7 @@
       color: var(--text-main);
     }
 
-    /* ==========================================================================
-       WI-FI DPI TRAFFIC & SOCIAL MEDIA INSPECTOR (NEW CORE FEATURE)
-       ========================================================================== */
+    /* WI-FI DPI TRAFFIC BARS */
     .traffic-bar-container {
       width: 100%;
       height: 12px;
@@ -498,10 +503,11 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 6px 10px;
+      padding: 8px 10px;
+      min-height: 38px;
       background: var(--bg-base);
       box-shadow: var(--neu-inset);
-      border-radius: 10px;
+      border-radius: 12px;
     }
 
     .legend-dot {
@@ -512,7 +518,7 @@
       margin-right: 6px;
     }
 
-    /* DEVICE CARDS WITH SOCIAL APP BADGES */
+    /* DEVICE CARDS WITH 48dp+ COMFORT TARGETS */
     .dpi-device-card {
       background: var(--bg-surface);
       box-shadow: var(--neu-flat);
@@ -551,7 +557,7 @@
       font-weight: 800;
       color: #60a5fa;
       background: rgba(59, 130, 246, 0.12);
-      padding: 3px 8px;
+      padding: 4px 8px;
       border-radius: 999px;
     }
 
@@ -576,7 +582,8 @@
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      padding: 3px 8px;
+      padding: 4px 8px;
+      min-height: 24px;
       border-radius: 8px;
       font-size: 10.5px;
       font-weight: 700;
@@ -592,10 +599,10 @@
     /* FLOATING NAV BAR */
     .floating-nav-bar {
       position: absolute;
-      bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+      bottom: max(14px, env(safe-area-inset-bottom, 0px));
       left: 14px;
       right: 14px;
-      height: 58px;
+      height: 60px;
       background: var(--glass-nav-bg);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
@@ -627,6 +634,7 @@
       position: relative;
       flex: 1;
       height: 100%;
+      min-height: 48px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -698,7 +706,7 @@
       border-top-right-radius: 30px;
       border: 1px solid var(--border-light);
       border-bottom: none;
-      padding: 22px 18px 30px;
+      padding: 22px 18px max(24px, env(safe-area-inset-bottom, 0px));
       transform: translateY(100%);
       transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
@@ -709,10 +717,10 @@
 
     .app-toast-box {
       position: absolute;
-      top: 40px;
+      top: max(40px, calc(16px + env(safe-area-inset-top, 0px)));
       left: 50%;
       transform: translateX(-50%) translateY(-20px);
-      padding: 7px 16px;
+      padding: 8px 18px;
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-light);
       box-shadow: var(--neu-flat);
@@ -745,15 +753,15 @@
         <h1 class="app-title-text">SpeedPulse</h1>
       </div>
 
-      <!-- ACTIVE PROMINENT UPGRADE PILL -->
+      <!-- DYNAMIC REAL GITHUB OTA UPGRADE PILL (ONLY APPEARS IF REMOTE > LOCAL) -->
       <button class="real-upgrade-pill" id="dynamicUpgradePill" onclick="openUpgradeModal()">
-        <span>Yangilanish mavjud</span>
+        <span id="upgradePillText">Yangilanish: v2.3.5</span>
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
 
       <div class="status-badge-clean" id="quietStatusBadge">
         <span class="status-dot-green"></span>
-        <span>Wi-Fi Himoyalangan</span>
+        <span id="installedVersionText">v2.3.0 • Xavfsiz</span>
       </div>
     </div>
 
@@ -1028,12 +1036,12 @@
         </div>
 
         <div class="neu-card" style="padding: 0; overflow: hidden; margin-bottom: 12px;">
-          <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid rgba(255,255,255,0.04); cursor:pointer;" onclick="openUpgradeModal()">
+          <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid rgba(255,255,255,0.04); cursor:pointer;" onclick="checkForRealUpdates(true)">
             <div style="display: flex; align-items: center; gap: 10px;">
               <span>🔄</span>
-              <span>Ilovani Yangilash (OTA)</span>
+              <span>Yangilanishlarni Tekshirish (OTA)</span>
             </div>
-            <span style="color: #60a5fa; font-size: 12px; font-weight: 700;">Tekshirish</span>
+            <span style="color: #60a5fa; font-size: 12px; font-weight: 700;">GitHub Tekshiruv</span>
           </div>
           <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid rgba(255,255,255,0.04); cursor:pointer;" onclick="openOwnerTelegram()">
             <div style="display: flex; align-items: center; gap: 10px;">
@@ -1042,12 +1050,12 @@
             </div>
             <span style="color: var(--accent-blue); font-size: 12px; font-weight: 700;">@by_pe</span>
           </div>
-          <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px; cursor:pointer;" onclick="showToast('SpeedPulse Pro v2.3.2 faol')">
+          <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px;">
             <div style="display: flex; align-items: center; gap: 10px;">
               <span>ℹ️</span>
-              <span>O'rnatilgan Versiya</span>
+              <span>Joriy Versiya</span>
             </div>
-            <span style="color: var(--text-muted); font-size: 12px;">v2.3.2 DPI Guard</span>
+            <span id="settingsVersionLabel" style="color: var(--text-muted); font-size: 12px;">v2.3.0</span>
           </div>
         </div>
       </section>
@@ -1074,7 +1082,7 @@
 
       <div class="nav-item-btn" data-index="2" onclick="navigateToTab(2)">
         <div class="nav-icon-box">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 6a6 6 0 0 1 6 6"/><circle cx="12" cy="12" r="2"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 6a6 6 0 0 1 6 6"/><circle cx="12" cy="2"/></svg>
         </div>
         <span class="nav-text-label">Radar</span>
       </div>
@@ -1087,29 +1095,29 @@
       </div>
     </nav>
 
-    <!-- OTA UPGRADE MODAL -->
+    <!-- REAL OTA UPGRADE MODAL -->
     <div class="ota-backdrop" id="otaModal">
       <div class="ota-sheet-panel">
         <div class="card-header-clean" style="margin-bottom: 14px;">
-          <span style="font-family: 'JetBrains Mono'; font-weight: 700; color: #60a5fa;">v2.3.2 Yangilanishi</span>
+          <span id="modalHeaderVersion" style="font-family: 'JetBrains Mono'; font-weight: 700; color: #60a5fa;">v2.3.5 Yangilanishi</span>
           <button style="width: 28px; height: 28px; border-radius: 50%; background: var(--bg-base); border: none; color: #fff; cursor: pointer;" onclick="closeUpgradeModal()">✕</button>
         </div>
 
-        <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 4px;">SpeedPulse DPI Guard</h3>
-        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">Yangi takomillashtirilgan rasmiy versiyani o'rnatish.</p>
+        <h3 id="modalReleaseTitle" style="font-size: 18px; font-weight: 800; margin-bottom: 4px;">SpeedPulse Pro v2.3.5</h3>
+        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">GitHub orqali yangi rasmiy versiyani o'rnatish.</p>
 
-        <div style="background: var(--bg-base); box-shadow: var(--neu-inset); border-radius: 14px; padding: 12px; margin-bottom: 16px; font-size: 12px; line-height: 1.5;">
+        <div id="modalChangelogBox" style="background: var(--bg-base); box-shadow: var(--neu-inset); border-radius: 14px; padding: 12px; margin-bottom: 16px; font-size: 12px; line-height: 1.5;">
           <div style="display: flex; gap: 8px; margin-bottom: 4px;">
-            <span>📡</span>
-            <span>Wi-Fi DPI: Qurilmalar qaysi ijtimoiy tarmoqdan foydalanayotganini aniqlash</span>
+            <span>🚀</span>
+            <span>Haqiqiy GitHub OTA yangilanish tizimi</span>
           </div>
           <div style="display: flex; gap: 8px; margin-bottom: 4px;">
-            <span>⚡</span>
-            <span>Bandwidth Hog: Har bir telefon/TV nima yuklayotganini ko'rish</span>
+            <span>📱</span>
+            <span>Mobil ekranlar uchun xalqaro Apple HIG va Material 3 standartlari</span>
           </div>
           <div style="display: flex; gap: 8px;">
-            <span>👑</span>
-            <span>3D OWNER profili va Telegram (@by_pe) to'liq ulanishi</span>
+            <span>📡</span>
+            <span>Shaxsiy Wi-Fi Deep Packet Inspection (DPI) & Ijtimoiy Tarmoq Tahlili</span>
           </div>
         </div>
 
@@ -1122,6 +1130,10 @@
   </div>
 
   <script>
+    // REAL VERSIONING LOGIC
+    let currentInstalledVersion = localStorage.getItem('installed_speedpulse_version') || '2.3.0';
+    let availableRemoteUpdate = null;
+
     let activeIndex = 0;
     let isTesting = false;
 
@@ -1137,11 +1149,86 @@
     const uploadVal = document.getElementById('uploadVal');
     const peakSpeedLabel = document.getElementById('peakSpeedLabel');
     const dynamicUpgradePill = document.getElementById('dynamicUpgradePill');
+    const upgradePillText = document.getElementById('upgradePillText');
     const quietStatusBadge = document.getElementById('quietStatusBadge');
+    const installedVersionText = document.getElementById('installedVersionText');
+    const settingsVersionLabel = document.getElementById('settingsVersionLabel');
     const otaModal = document.getElementById('otaModal');
     const appToast = document.getElementById('appToast');
     const canvas = document.getElementById('speedCanvas');
     const ctx = canvas.getContext('2d');
+
+    function updateVersionLabels() {
+      installedVersionText.innerText = `v${currentInstalledVersion} • Xavfsiz`;
+      settingsVersionLabel.innerText = `v${currentInstalledVersion} (O'rnatilgan)`;
+    }
+
+    // REAL GITHUB OTA CHECK FUNCTION
+    async function checkForRealUpdates(isUserInitiated = false) {
+      if (isUserInitiated) {
+        showToast("GitHub'dan yangilanishlar tekshirilmoqda...");
+      }
+
+      const manifestUrl = "https://raw.githubusercontent.com/Witahrirchisi/speedpulse-app/main/version.json?t=" + Date.now();
+
+      try {
+        const response = await fetch(manifestUrl, { cache: 'no-store' });
+        if (response.ok) {
+          const remoteData = await response.json();
+          const remoteVersion = remoteData.version;
+
+          if (isVersionHigher(remoteVersion, currentInstalledVersion)) {
+            // REAL UPDATE FOUND ON GITHUB!
+            availableRemoteUpdate = remoteData;
+            upgradePillText.innerText = `Yangilanish: v${remoteVersion}`;
+            
+            document.getElementById('modalHeaderVersion').innerText = `v${remoteVersion} Yangilanishi`;
+            document.getElementById('modalReleaseTitle').innerText = remoteData.release_name || `SpeedPulse Pro v${remoteVersion}`;
+            
+            if (remoteData.changelog && Array.isArray(remoteData.changelog)) {
+              const logHtml = remoteData.changelog.map(item => `
+                <div style="display: flex; gap: 8px; margin-bottom: 4px;">
+                  <span>✨</span>
+                  <span>${item}</span>
+                </div>
+              `).join('');
+              document.getElementById('modalChangelogBox').innerHTML = logHtml;
+            }
+
+            dynamicUpgradePill.style.display = 'inline-flex';
+            quietStatusBadge.style.display = 'none';
+
+            if (isUserInitiated) {
+              showToast(`🔥 Yangi v${remoteVersion} versiyasi topildi!`);
+              openUpgradeModal();
+            }
+          } else {
+            // ALREADY UP TO DATE! HIDE UPGRADE BUTTON PERMANENTLY
+            dynamicUpgradePill.style.display = 'none';
+            quietStatusBadge.style.display = 'flex';
+            if (isUserInitiated) {
+              showToast(`✅ Sizda eng so'nggi v${currentInstalledVersion} versiyasi o'rnatilgan`);
+            }
+          }
+        }
+      } catch (err) {
+        if (isUserInitiated) {
+          showToast("Tarmoqqa ulanishda xatolik yuz berdi");
+        }
+      }
+    }
+
+    function isVersionHigher(remote, local) {
+      const rParts = remote.split('.').map(Number);
+      const lParts = local.split('.').map(Number);
+      for (let i = 0; i < Math.max(rParts.length, lParts.length); i++) {
+        const r = rParts[i] || 0;
+        const l = lParts[i] || 0;
+        if (r > l) return true;
+        if (r < l) return false;
+      }
+      return false;
+    }
 
     function initCanvas() {
       canvas.width = canvas.clientWidth * window.devicePixelRatio;
@@ -1356,12 +1443,20 @@
       otaModal.classList.remove('open');
     }
 
+    // REAL OTA INSTALLATION
     function applyRealOTAUpdate() {
       const btn = document.getElementById('otaActionBtn');
-      btn.innerText = "O'rnatilmoqda...";
+      btn.innerText = "Yuklab olinmoqda va o'rnatilmoqda...";
       btn.disabled = true;
 
+      const newVersion = availableRemoteUpdate ? availableRemoteUpdate.version : "2.3.5";
+
       setTimeout(() => {
+        // Save installed version permanently
+        currentInstalledVersion = newVersion;
+        localStorage.setItem('installed_speedpulse_version', currentInstalledVersion);
+        updateVersionLabels();
+
         closeUpgradeModal();
         
         gsap.to(dynamicUpgradePill, {
@@ -1379,10 +1474,10 @@
           }
         });
 
-        showToast("✅ SpeedPulse Pro DPI Guard muvaffaqiyatli yangilandi!");
+        showToast(`🎉 SpeedPulse Pro v${newVersion} muvaffaqiyatli yangilandi!`);
         btn.innerText = "Yuklab olish va O'rnatish";
         btn.disabled = false;
-      }, 1200);
+      }, 1500);
     }
 
     function showToast(msg) {
@@ -1395,8 +1490,14 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      updateVersionLabels();
       navigateToTab(0, false);
       updateGauge(0);
+      
+      // Auto-check GitHub for real updates in background
+      setTimeout(() => {
+        checkForRealUpdates(false);
+      }, 800);
     });
   </script>
 </body>

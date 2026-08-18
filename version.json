@@ -1,0 +1,13 @@
+{
+  "version": "2.3.5",
+  "release_name": "SpeedPulse Pro v2.3.5 — Wi-Fi Traffic DPI & Dynamic Matrix",
+  "published_at": "2026-08-18T23:00:00Z",
+  "changelog": [
+    "Haqiqiy masofaviy GitHub OTA yangilanish tizimi",
+    "Mobil ekranlar uchun xalqaro Apple HIG va Material 3 ergonomik standartlari",
+    "Shaxsiy Wi-Fi Deep Packet Inspection (DPI) va ijtimoiy tarmoqlar tahlilchisi"
+  ],
+  "apk_url": "https://github.com/Witahrirchisi/speedpulse-android/raw/main/SpeedPulse_Pro_v1.apk",
+  "exe_url": "https://github.com/Witahrirchisi/speedpulse-app/raw/main/SpeedPulse_v1.exe",
+  "ipa_url": "https://github.com/Witahrirchisi/speedpulse-ios/raw/main/SpeedPulse_Pro_v1.ipa"
+}
