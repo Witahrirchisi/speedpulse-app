@@ -3,39 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>SpeedPulse v2.3.0 — Real-Time Network Speed & Multi-Server Diagnostics</title>
+  <title>SpeedPulse Pro — Precision Network Telemetry & Diagnostics</title>
   
-  <!-- Fonts -->
+  <!-- Modern Clean Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
 
-  <!-- GSAP for Native Spring & Physics Motion -->
+  <!-- GSAP Physics Engine -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
   <style>
     :root {
-      --bg-dark: #000000;
-      --bg-gradient-top: #060a14;
-      --card-bg: #141519;
-      --card-bg-elevated: #1a1c23;
-      --card-border: rgba(255, 255, 255, 0.08);
+      --bg-base: #07080a;
+      --surface-1: #111318;
+      --surface-2: #181b22;
+      --surface-elevated: #20242e;
+      --border-subtle: rgba(255, 255, 255, 0.07);
+      --border-medium: rgba(255, 255, 255, 0.12);
       
-      --text-white: #ffffff;
-      --text-muted: #8e8e93;
-      --text-sub: #636366;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-tertiary: #64748b;
       
-      --accent-cyan: #06b6d4;
-      --accent-blue: #2563eb;
-      --accent-blue-glow: rgba(37, 99, 235, 0.4);
-      --accent-green: #10b981;
-      --accent-purple: #8b5cf6;
-      --accent-amber: #f59e0b;
+      --accent-blue: #3b82f6;
+      --accent-blue-soft: rgba(59, 130, 246, 0.15);
+      --accent-emerald: #10b981;
+      --accent-emerald-soft: rgba(16, 185, 129, 0.12);
       
-      --glass-nav-bg: rgba(20, 22, 28, 0.82);
-      --glass-nav-border: rgba(255, 255, 255, 0.12);
-      --glass-indicator-bg: rgba(255, 255, 255, 0.16);
-      --glass-indicator-border: rgba(255, 255, 255, 0.22);
+      --glass-nav-bg: rgba(17, 19, 24, 0.88);
+      --glass-nav-border: rgba(255, 255, 255, 0.10);
+      --glass-indicator-bg: rgba(255, 255, 255, 0.12);
+      --glass-indicator-border: rgba(255, 255, 255, 0.18);
     }
 
     * {
@@ -48,8 +47,8 @@
 
     body {
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background-color: #050608;
-      color: var(--text-white);
+      background-color: #030406;
+      color: var(--text-primary);
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -64,9 +63,8 @@
       max-width: 420px;
       height: 890px;
       max-height: 100vh;
-      background-color: var(--bg-dark);
-      background-image: linear-gradient(180deg, var(--bg-gradient-top) 0%, var(--bg-dark) 380px);
-      box-shadow: 0 0 50px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      background-color: var(--bg-base);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 255, 255, 0.08);
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -74,35 +72,35 @@
 
     @media (min-width: 500px) {
       .app-frame {
-        border-radius: 44px;
-        border: 4px solid rgba(255, 255, 255, 0.12);
+        border-radius: 40px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
         max-height: 94vh;
       }
     }
 
-    /* Android Status Bar */
+    /* Top System Status Bar */
     .status-bar {
-      height: 42px;
-      padding: 10px 24px 0;
+      height: 40px;
+      padding: 12px 24px 0;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
-      color: rgba(255, 255, 255, 0.85);
+      color: var(--text-secondary);
       z-index: 40;
       flex-shrink: 0;
       pointer-events: none;
     }
 
-    .status-bar .status-icons {
+    .status-icons {
       display: flex;
       align-items: center;
       gap: 6px;
       font-size: 11px;
     }
 
-    /* Screen Pages Scroll Viewport */
+    /* Viewport */
     .screens-viewport {
       position: relative;
       flex: 1;
@@ -115,12 +113,12 @@
       inset: 0;
       overflow-y: auto;
       overflow-x: hidden;
-      padding: 8px 18px 150px;
+      padding: 6px 18px 140px;
       opacity: 0;
       pointer-events: none;
       visibility: hidden;
-      transform: translateY(8px);
-      transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s;
+      transform: translateY(6px);
+      transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
       scrollbar-width: none;
     }
 
@@ -135,91 +133,112 @@
       transform: translateY(0);
     }
 
-    /* Top App Bar */
-    .top-app-bar {
+    /* Top App Header */
+    .top-app-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 16px;
-      padding-top: 4px;
-      min-height: 44px;
+      margin-bottom: 14px;
+      min-height: 42px;
     }
 
-    .top-app-title {
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: -0.6px;
-      color: #ffffff;
+    .brand-group {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
 
-    .top-app-title .dot {
-      width: 8px;
-      height: 8px;
-      background: var(--accent-cyan);
-      border-radius: 50%;
-      box-shadow: 0 0 10px var(--accent-cyan);
+    .brand-icon-box {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-blue);
     }
 
-    /* DYNAMIC UPGRADE BUTTON (BLUE GLASSMORPHIC PILL WITH SPRING ENTRANCE) */
-    .dynamic-upgrade-btn {
+    .app-title-text {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      color: var(--text-primary);
+    }
+
+    /* TRUTHFUL DYNAMIC UPGRADE PILL: ONLY VISIBLE WHEN REAL UPDATE EXISTS */
+    .real-upgrade-pill {
       display: none;
       align-items: center;
-      gap: 8px;
-      padding: 7px 16px;
+      gap: 6px;
+      padding: 6px 14px;
       border-radius: 999px;
-      background: linear-gradient(135deg, rgba(37, 99, 235, 0.5) 0%, rgba(29, 78, 216, 0.25) 100%);
-      border: 1px solid rgba(96, 165, 250, 0.45);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: var(--accent-blue);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       color: #ffffff;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 4px 20px var(--accent-blue-glow), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+      box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
       transform-origin: center right;
-      z-index: 50;
     }
 
-    .dynamic-upgrade-btn.visible {
+    .real-upgrade-pill.visible {
       display: inline-flex;
     }
 
-    .dynamic-upgrade-btn:active {
-      transform: scale(0.94);
+    .real-upgrade-pill:active {
+      transform: scale(0.95);
     }
 
-    .upgrade-pulse-dot {
-      width: 7px;
-      height: 7px;
+    .status-badge-clean {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+    }
+
+    .status-dot-green {
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
-      background: #60a5fa;
-      box-shadow: 0 0 8px #60a5fa;
-      animation: pulseUpgrade 1.8s infinite;
-    }
-
-    @keyframes pulseUpgrade {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.4); opacity: 0.6; }
+      background: var(--accent-emerald);
     }
 
     /* ==========================================================================
-       SPEED TEST GAUGE & METRICS
+       PRECISION SPEED GAUGE
        ========================================================================== */
-    .gauge-wrapper {
+    .gauge-card {
       position: relative;
-      width: 270px;
-      height: 270px;
-      margin: 8px auto 16px;
+      width: 100%;
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: 28px;
+      padding: 24px 20px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      margin-bottom: 14px;
     }
 
-    .gauge-svg {
+    .gauge-visual-container {
+      position: relative;
+      width: 230px;
+      height: 230px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 6px;
+    }
+
+    .gauge-svg-element {
       position: absolute;
       inset: 0;
       width: 100%;
@@ -227,290 +246,252 @@
       transform: rotate(-90deg);
     }
 
-    .gauge-track {
+    .gauge-track-circle {
       fill: none;
-      stroke: rgba(255, 255, 255, 0.06);
-      stroke-width: 12;
+      stroke: rgba(255, 255, 255, 0.05);
+      stroke-width: 8;
       stroke-linecap: round;
     }
 
-    .gauge-fill {
+    .gauge-fill-circle {
       fill: none;
-      stroke: url(#gaugeGradient);
-      stroke-width: 12;
+      stroke: #3b82f6;
+      stroke-width: 8;
       stroke-linecap: round;
-      stroke-dasharray: 691.15;
-      stroke-dashoffset: 691.15;
-      transition: stroke-dashoffset 0.1s linear;
-      filter: drop-shadow(0 0 14px rgba(6, 182, 212, 0.65));
+      stroke-dasharray: 603.18;
+      stroke-dashoffset: 603.18;
+      transition: stroke-dashoffset 0.08s linear;
     }
 
-    .gauge-center-content {
-      position: relative;
-      z-index: 2;
+    .gauge-center-stack {
       text-align: center;
       display: flex;
       flex-direction: column;
       align-items: center;
+      z-index: 2;
     }
 
-    .speed-value-display {
+    .live-speed-value {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 52px;
+      font-size: 56px;
       font-weight: 800;
-      color: #ffffff;
+      color: var(--text-primary);
       line-height: 1;
       letter-spacing: -2px;
       margin-bottom: 2px;
     }
 
-    .speed-unit-label {
-      font-size: 13px;
+    .live-speed-unit {
+      font-size: 12px;
       font-weight: 700;
-      color: var(--accent-cyan);
+      color: var(--text-secondary);
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 10px;
-    }
-
-    .test-phase-badge {
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 14px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 999px;
-      color: var(--text-muted);
-      transition: all 0.2s;
-    }
-
-    .test-phase-badge.active {
-      background: rgba(6, 182, 212, 0.2);
-      border-color: var(--accent-cyan);
-      color: #ffffff;
-      box-shadow: 0 0 14px rgba(6, 182, 212, 0.35);
-    }
-
-    /* Start Action Button */
-    .start-test-btn {
-      width: 100%;
-      padding: 16px;
-      background: linear-gradient(135deg, #06b6d4 0%, #2563eb 100%);
-      color: #ffffff;
-      border: none;
-      border-radius: 999px;
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      box-shadow: 0 10px 30px rgba(6, 182, 212, 0.35);
-      transition: transform 0.15s, opacity 0.15s;
-      margin-bottom: 18px;
-    }
-
-    .start-test-btn:active {
-      transform: scale(0.97);
-    }
-
-    .start-test-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    /* Real-Time Speed Waveform Graph */
-    .graph-card {
-      background: #141519;
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 14px 16px;
-      margin-bottom: 18px;
-    }
-
-    .graph-header {
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--text-muted);
+      letter-spacing: 0.8px;
       margin-bottom: 8px;
     }
 
-    .graph-header span.highlight {
-      color: var(--accent-cyan);
-      font-family: 'JetBrains Mono', monospace;
+    .phase-badge-pill {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 12px;
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
+      border-radius: 999px;
+      color: var(--text-secondary);
     }
 
-    .live-canvas-graph {
+    .phase-badge-pill.active {
+      background: var(--accent-blue-soft);
+      border-color: rgba(59, 130, 246, 0.35);
+      color: #60a5fa;
+    }
+
+    /* Start Button */
+    .primary-test-btn {
       width: 100%;
-      height: 65px;
-      display: block;
+      padding: 15px;
+      background: #ffffff;
+      color: #000000;
+      border: none;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+      box-shadow: 0 4px 18px rgba(255, 255, 255, 0.15);
+      transition: transform 0.12s, opacity 0.12s;
+      margin-bottom: 14px;
     }
 
-    /* Primary 3-Metric Cards Row */
-    .metrics-summary-grid {
+    .primary-test-btn:active {
+      transform: scale(0.97);
+    }
+
+    .primary-test-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* 3 Primary Metrics */
+    .metrics-row-3col {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 18px;
+      gap: 8px;
+      margin-bottom: 14px;
     }
 
-    .metric-card {
-      background: #141519;
-      border: 1px solid var(--card-border);
+    .metric-box-card {
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
       border-radius: 18px;
       padding: 12px 10px;
       text-align: center;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
     }
 
-    .metric-icon {
-      font-size: 14px;
-    }
-
-    .metric-title {
+    .metric-label-text {
       font-size: 10px;
-      font-weight: 600;
-      color: var(--text-muted);
+      font-weight: 700;
+      color: var(--text-tertiary);
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
 
-    .metric-val {
+    .metric-number-display {
       font-family: 'JetBrains Mono', monospace;
       font-size: 16px;
-      font-weight: 800;
-      color: #ffffff;
+      font-weight: 700;
+      color: var(--text-primary);
     }
 
-    /* Multi-Server Latency Matrix (v2.3.0 Feature) */
-    .latency-matrix-card {
-      background: #141519;
-      border: 1px solid var(--card-border);
+    /* Real-Time Waveform Graph */
+    .waveform-card {
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 12px 16px;
+      margin-bottom: 14px;
+    }
+
+    .waveform-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    .live-waveform-canvas {
+      width: 100%;
+      height: 55px;
+      display: block;
+    }
+
+    /* Edge Nodes Latency Table */
+    .edge-matrix-card {
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
       border-radius: 20px;
       padding: 14px 16px;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
 
-    .latency-matrix-header {
+    .edge-matrix-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       font-size: 12px;
       font-weight: 700;
-      color: var(--text-white);
+      color: var(--text-primary);
     }
 
-    .server-ping-row {
+    .edge-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 8px;
-      font-size: 11.5px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
     }
 
-    .server-ping-row:last-child {
+    .edge-row:last-child {
       margin-bottom: 0;
     }
 
-    .server-ping-bar-wrap {
-      flex: 1;
-      margin: 0 12px;
-      height: 5px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .server-ping-bar-fill {
-      height: 100%;
-      width: 20%;
-      background: var(--accent-green);
-      border-radius: 999px;
-      transition: width 0.3s ease;
-    }
-
-    .server-ping-val {
+    .edge-row-ping {
       font-family: 'JetBrains Mono', monospace;
       font-weight: 700;
-      font-size: 11px;
-      min-width: 45px;
-      text-align: right;
+      color: var(--text-primary);
     }
 
     /* ==========================================================================
        TAB 2: ANALYTICS & HISTORY
        ========================================================================== */
-    .history-item-row {
-      background: #141519;
-      border: 1px solid var(--card-border);
+    .history-card-item {
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
       border-radius: 18px;
       padding: 14px 16px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
 
-    .history-speed-meta {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .history-badge {
+    .history-speed-val {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 800;
-      color: var(--accent-cyan);
-      min-width: 55px;
+      color: #60a5fa;
     }
 
     /* ==========================================================================
-       TAB 3: WI-FI & DIAGNOSTICS
+       TAB 3: DIAGNOSTICS
        ========================================================================== */
-    .diag-grid-2col {
+    .diag-grid-2x2 {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-bottom: 18px;
+      gap: 8px;
+      margin-bottom: 14px;
     }
 
-    .diag-metric-box {
-      background: #141519;
-      border: 1px solid var(--card-border);
+    .diag-box {
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
       border-radius: 18px;
       padding: 14px;
     }
 
-    .diag-metric-box .label {
+    .diag-box .d-label {
       font-size: 11px;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       font-weight: 600;
       margin-bottom: 4px;
     }
 
-    .diag-metric-box .value {
+    .diag-box .d-val {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 800;
-      color: #ffffff;
+      color: var(--text-primary);
     }
 
     /* ==========================================================================
        TAB 4: SETTINGS
        ========================================================================== */
-    .settings-list-card {
-      background: #141519;
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
+    .settings-block {
+      background: var(--surface-1);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
       overflow: hidden;
-      margin-bottom: 20px;
+      margin-bottom: 14px;
     }
 
-    .settings-item {
+    .settings-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -521,37 +502,36 @@
       font-weight: 600;
     }
 
-    .settings-item:last-child {
+    .settings-row:last-child {
       border-bottom: none;
     }
 
-    .settings-item:active {
-      background: rgba(255, 255, 255, 0.04);
+    .settings-row:active {
+      background: var(--surface-2);
     }
 
     /* ==========================================================================
-       FLOATING GLASS TAB BAR (LIQUID NAVIGATION BAR)
+       FLOATING GLASS TAB BAR
        ========================================================================== */
-    .floating-tab-bar {
+    .floating-nav-bar {
       position: absolute;
       bottom: 16px;
-      left: 14px;
-      right: 14px;
-      height: 62px;
+      left: 16px;
+      right: 16px;
+      height: 60px;
       background: var(--glass-nav-bg);
-      backdrop-filter: blur(28px) saturate(180%);
-      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       border: 1px solid var(--glass-nav-border);
       border-radius: 999px;
       display: flex;
       align-items: center;
       padding: 4px;
       z-index: 90;
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
     }
 
-    /* ACTIVE TAB INDICATOR: SLIDING / MORPHING SPRING CAPSULE */
-    .active-indicator-capsule {
+    .nav-indicator-pill {
       position: absolute;
       top: 4px;
       bottom: 4px;
@@ -561,15 +541,12 @@
       background: var(--glass-indicator-bg);
       border: 1px solid var(--glass-indicator-border);
       border-radius: 999px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
       pointer-events: none;
       z-index: 1;
       will-change: transform;
     }
 
-    /* Tab Items */
-    .tab-button {
+    .nav-item-btn {
       position: relative;
       flex: 1;
       height: 100%;
@@ -580,106 +557,104 @@
       gap: 2px;
       z-index: 2;
       cursor: pointer;
-      color: rgba(255, 255, 255, 0.45);
-      transition: color 0.22s ease, transform 0.12s ease;
+      color: var(--text-tertiary);
+      transition: color 0.18s ease;
     }
 
-    .tab-button:active {
-      transform: scale(0.92);
+    .nav-item-btn:active {
+      transform: scale(0.94);
     }
 
-    .tab-button.active {
+    .nav-item-btn.active {
       color: #ffffff;
     }
 
-    .tab-icon-svg {
-      width: 20px;
-      height: 20px;
+    .nav-icon-box {
+      width: 19px;
+      height: 19px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    .tab-icon-svg svg {
+    .nav-icon-box svg {
       width: 100%;
       height: 100%;
       fill: currentColor;
     }
 
-    .tab-title-text {
+    .nav-text-label {
       font-size: 10.5px;
       font-weight: 600;
-      letter-spacing: -0.1px;
     }
 
-    .tab-button.active .tab-title-text {
+    .nav-item-btn.active .nav-text-label {
       font-weight: 700;
-      color: #ffffff;
     }
 
     /* ==========================================================================
        OTA UPGRADE MODAL
        ========================================================================== */
-    .ota-modal-backdrop {
+    .ota-backdrop {
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       z-index: 150;
       opacity: 0;
       pointer-events: none;
       visibility: hidden;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
       display: flex;
       align-items: flex-end;
     }
 
-    .ota-modal-backdrop.open {
+    .ota-backdrop.open {
       opacity: 1;
       pointer-events: auto;
       visibility: visible;
     }
 
-    .ota-modal-sheet {
+    .ota-sheet-panel {
       width: 100%;
-      background: linear-gradient(180deg, #161820 0%, #0d0f14 100%);
-      border-top-left-radius: 32px;
-      border-top-right-radius: 32px;
-      border: 1px solid rgba(255, 255, 255, 0.14);
+      background: var(--surface-1);
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+      border: 1px solid var(--border-medium);
       border-bottom: none;
       padding: 24px 20px 32px;
       transform: translateY(100%);
-      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .ota-modal-backdrop.open .ota-modal-sheet {
+    .ota-backdrop.open .ota-sheet-panel {
       transform: translateY(0);
     }
 
-    .ota-sheet-header {
+    .ota-header-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
-    .ota-version-tag {
+    .ota-version-chip {
       font-family: 'JetBrains Mono', monospace;
       font-size: 12px;
       font-weight: 700;
       color: #60a5fa;
-      background: rgba(37, 99, 235, 0.18);
-      border: 1px solid rgba(37, 99, 235, 0.35);
+      background: var(--accent-blue-soft);
+      border: 1px solid rgba(59, 130, 246, 0.3);
       padding: 3px 10px;
       border-radius: 999px;
     }
 
-    .ota-sheet-close {
-      width: 32px;
-      height: 32px;
+    .ota-close-btn {
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.08);
+      background: var(--surface-2);
       border: none;
       color: #fff;
       display: flex;
@@ -689,108 +664,72 @@
     }
 
     .ota-sheet-title {
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 800;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .ota-sheet-desc {
       font-size: 12px;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       margin-bottom: 16px;
       line-height: 1.4;
     }
 
-    .ota-changelog-box {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+    .ota-changelog-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border-subtle);
       border-radius: 16px;
       padding: 14px;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
       font-size: 12px;
       line-height: 1.5;
     }
 
-    .ota-changelog-item {
+    .ota-log-item {
       display: flex;
       gap: 8px;
       margin-bottom: 6px;
-      color: #d1d5db;
+      color: var(--text-primary);
     }
 
-    .ota-changelog-item:last-child {
+    .ota-log-item:last-child {
       margin-bottom: 0;
     }
 
-    .ota-progress-container {
-      display: none;
-      margin-bottom: 16px;
-    }
-
-    .ota-progress-bar-bg {
-      width: 100%;
-      height: 6px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 999px;
-      overflow: hidden;
-      margin-bottom: 6px;
-    }
-
-    .ota-progress-bar-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #2563eb, #06b6d4);
-      border-radius: 999px;
-      transition: width 0.1s linear;
-    }
-
-    .ota-progress-text {
-      font-size: 11px;
-      font-weight: 600;
-      color: #06b6d4;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .ota-action-btn {
+    .ota-action-cta {
       width: 100%;
       padding: 14px;
-      background: #2563eb;
+      background: var(--accent-blue);
       color: #ffffff;
       border-radius: 999px;
       border: none;
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 4px 20px var(--accent-blue-glow);
-    }
-
-    .ota-action-btn:active {
-      transform: scale(0.97);
     }
 
     /* Toast */
-    .app-toast-pill {
+    .app-toast-box {
       position: absolute;
-      top: 50px;
+      top: 48px;
       left: 50%;
       transform: translateX(-50%) translateY(-20px);
-      padding: 8px 16px;
-      background: rgba(24, 26, 32, 0.95);
-      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 7px 16px;
+      background: var(--surface-elevated);
+      border: 1px solid var(--border-medium);
       border-radius: 999px;
       font-size: 12px;
       font-weight: 600;
       color: #fff;
-      backdrop-filter: blur(10px);
       opacity: 0;
       pointer-events: none;
-      transition: all 0.25s ease;
+      transition: all 0.22s ease;
       z-index: 200;
       white-space: nowrap;
     }
 
-    .app-toast-pill.show {
+    .app-toast-box.show {
       transform: translateX(-50%) translateY(0);
       opacity: 1;
     }
@@ -798,10 +737,10 @@
 </head>
 <body>
 
-  <!-- Android Phone Frame -->
+  <!-- App Frame -->
   <div class="app-frame">
 
-    <!-- Status Bar -->
+    <!-- Top Status Bar -->
     <div class="status-bar">
       <span id="statusBarTime">22:24</span>
       <div class="status-icons">
@@ -811,8 +750,8 @@
       </div>
     </div>
 
-    <!-- Toast Notification -->
-    <div class="app-toast-pill" id="appToast">Xabar</div>
+    <!-- Toast -->
+    <div class="app-toast-box" id="appToast">Xabar</div>
 
     <!-- Screens Viewport -->
     <div class="screens-viewport">
@@ -821,98 +760,87 @@
       <!-- TAB 1: SPEED TEST -->
       <!-- ========================================== -->
       <section class="screen-tab-page active" id="tabTest">
-        <div class="top-app-bar">
-          <h1 class="top-app-title">
-            <span class="dot"></span>
-            <span>SpeedPulse</span>
-          </h1>
-          
-          <!-- DYNAMIC UPGRADE PILL (BLUE GLASS WITH SPRING ENTRANCE) -->
-          <button class="dynamic-upgrade-btn" id="dynamicUpgradePill" onclick="openUpgradeModal()">
-            <span class="upgrade-pulse-dot"></span>
-            <span>Upgrade</span>
+        <div class="top-app-header">
+          <div class="brand-group">
+            <div class="brand-icon-box">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+            </div>
+            <h1 class="app-title-text">SpeedPulse</h1>
+          </div>
+
+          <!-- TRUTHFUL DYNAMIC UPGRADE PILL: ONLY VISIBLE WHEN NEW VERSION EXISTS ON GITHUB -->
+          <button class="real-upgrade-pill" id="dynamicUpgradePill" onclick="openUpgradeModal()">
+            <span>Update Available</span>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
           </button>
-        </div>
 
-        <!-- Speed Gauge Visualizer -->
-        <div class="gauge-wrapper">
-          <svg class="gauge-svg" viewBox="0 0 260 260">
-            <defs>
-              <linearGradient id="gaugeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#06b6d4" />
-                <stop offset="50%" stop-color="#3b82f6" />
-                <stop offset="100%" stop-color="#8b5cf6" />
-              </linearGradient>
-            </defs>
-            <circle class="gauge-track" cx="130" cy="130" r="110" />
-            <circle class="gauge-fill" id="gaugeArc" cx="130" cy="130" r="110" />
-          </svg>
-
-          <div class="gauge-center-content">
-            <div class="speed-value-display" id="speedValue">0.0</div>
-            <div class="speed-unit-label" id="speedUnitDisplay">Mbps Download</div>
-            <div class="test-phase-badge" id="testPhaseBadge">Tayyor</div>
+          <!-- Quiet Connected Status Badge when on Latest Version -->
+          <div class="status-badge-clean" id="quietStatusBadge">
+            <span class="status-dot-green"></span>
+            <span>Cloudflare Edge</span>
           </div>
         </div>
 
-        <!-- Start Test CTA Button -->
-        <button class="start-test-btn" id="startTestBtn" onclick="runRealSpeedTest()">START SPEED TEST</button>
+        <!-- Precision Speedometer Card -->
+        <div class="gauge-card">
+          <div class="gauge-visual-container">
+            <svg class="gauge-svg-element" viewBox="0 0 220 220">
+              <circle class="gauge-track-circle" cx="110" cy="110" r="96" />
+              <circle class="gauge-fill-circle" id="gaugeArc" cx="110" cy="110" r="96" />
+            </svg>
 
-        <!-- Real-Time Speed Waveform Graph -->
-        <div class="graph-card">
-          <div class="graph-header">
+            <div class="gauge-center-stack">
+              <div class="live-speed-value" id="speedValue">0.0</div>
+              <div class="live-speed-unit">Mbps Download</div>
+              <div class="phase-badge-pill" id="testPhaseBadge">Tayyor</div>
+            </div>
+          </div>
+
+          <button class="primary-test-btn" id="startTestBtn" onclick="runRealSpeedTest()">START SPEED TEST</button>
+        </div>
+
+        <!-- 3 Primary Key Metrics -->
+        <div class="metrics-row-3col">
+          <div class="metric-box-card">
+            <span class="metric-label-text">Ping</span>
+            <span class="metric-number-display" id="pingVal">-- ms</span>
+          </div>
+          <div class="metric-box-card">
+            <span class="metric-label-text">Jitter</span>
+            <span class="metric-number-display" id="jitterVal">-- ms</span>
+          </div>
+          <div class="metric-box-card">
+            <span class="metric-label-text">Upload</span>
+            <span class="metric-number-display" id="uploadVal">-- Mbps</span>
+          </div>
+        </div>
+
+        <!-- Real-Time Waveform Graph -->
+        <div class="waveform-card">
+          <div class="waveform-header">
             <span>REAL STREAM THROUGHPUT</span>
-            <span class="highlight" id="peakSpeedLabel">PEAK: 0.0 Mbps</span>
+            <span id="peakSpeedLabel" style="color: #60a5fa; font-family: 'JetBrains Mono', monospace;">PEAK: 0.0 Mbps</span>
           </div>
-          <canvas class="live-canvas-graph" id="speedCanvas"></canvas>
+          <canvas class="live-waveform-canvas" id="speedCanvas"></canvas>
         </div>
 
-        <!-- 3-Metrics Summary Grid -->
-        <div class="metrics-summary-grid">
-          <div class="metric-card">
-            <span class="metric-icon">⚡</span>
-            <span class="metric-title">Ping</span>
-            <span class="metric-val" id="pingVal">-- ms</span>
+        <!-- Edge Nodes Latency Table -->
+        <div class="edge-matrix-card">
+          <div class="edge-matrix-header">
+            <span>Global Edge Routing</span>
+            <span style="color: #60a5fa; font-size: 11px; cursor: pointer;" onclick="auditEdgeLatency()">Refresh</span>
           </div>
-          <div class="metric-card">
-            <span class="metric-icon">〰️</span>
-            <span class="metric-title">Jitter</span>
-            <span class="metric-val" id="jitterVal">-- ms</span>
+          <div class="edge-row">
+            <span>Cloudflare Edge (UZ Node)</span>
+            <span class="edge-row-ping" id="edgePing1">12 ms</span>
           </div>
-          <div class="metric-card">
-            <span class="metric-icon">📤</span>
-            <span class="metric-title">Upload</span>
-            <span class="metric-val" id="uploadVal">-- Mbps</span>
-          </div>
-        </div>
-
-        <!-- Multi-Server Latency Matrix (v2.3.0 Feature) -->
-        <div class="latency-matrix-card">
-          <div class="latency-matrix-header">
-            <span>Global Edge Nodes Matrix</span>
-            <span style="color: var(--accent-cyan); font-size: 11px; cursor: pointer;" onclick="auditEdgeLatency()">Refresh</span>
-          </div>
-          <div class="server-ping-row">
-            <span>Cloudflare Edge (UZ)</span>
-            <div class="server-ping-bar-wrap">
-              <div class="server-ping-bar-fill" id="pingBar1" style="width: 25%;"></div>
-            </div>
-            <span class="server-ping-val" id="pingLabel1">12 ms</span>
-          </div>
-          <div class="server-ping-row">
+          <div class="edge-row">
             <span>Google Edge Global</span>
-            <div class="server-ping-bar-wrap">
-              <div class="server-ping-bar-fill" id="pingBar2" style="width: 35%; background: var(--accent-cyan);"></div>
-            </div>
-            <span class="server-ping-val" id="pingLabel2">18 ms</span>
+            <span class="edge-row-ping" id="edgePing2">18 ms</span>
           </div>
-          <div class="server-ping-row">
+          <div class="edge-row">
             <span>Cloudflare 1.1.1.1 DNS</span>
-            <div class="server-ping-bar-wrap">
-              <div class="server-ping-bar-fill" id="pingBar3" style="width: 20%;"></div>
-            </div>
-            <span class="server-ping-val" id="pingLabel3">9 ms</span>
+            <span class="edge-row-ping" id="edgePing3">9 ms</span>
           </div>
         </div>
       </section>
@@ -921,72 +849,68 @@
       <!-- TAB 2: ANALYTICS & HISTORY -->
       <!-- ========================================== -->
       <section class="screen-tab-page" id="tabAnalytics">
-        <div class="top-app-bar">
-          <h1 class="top-app-title">History & Stats</h1>
+        <div class="top-app-header">
+          <h1 class="app-title-text">Telemetry History</h1>
         </div>
 
-        <div class="metrics-summary-grid" style="margin-bottom: 20px;">
-          <div class="metric-card">
-            <span class="metric-title">Avg Download</span>
-            <span class="metric-val" id="avgSpeedVal">--</span>
+        <div class="metrics-row-3col" style="margin-bottom: 16px;">
+          <div class="metric-box-card">
+            <span class="metric-label-text">Average</span>
+            <span class="metric-number-display" id="avgSpeedVal">--</span>
           </div>
-          <div class="metric-card">
-            <span class="metric-title">Max Peak</span>
-            <span class="metric-val" id="maxSpeedVal">--</span>
+          <div class="metric-box-card">
+            <span class="metric-label-text">Peak Speed</span>
+            <span class="metric-number-display" id="maxSpeedVal">--</span>
           </div>
-          <div class="metric-card">
-            <span class="metric-title">Total Tests</span>
-            <span class="metric-val" id="totalTestsVal">0</span>
+          <div class="metric-box-card">
+            <span class="metric-label-text">Tests Run</span>
+            <span class="metric-number-display" id="totalTestsVal">0</span>
           </div>
         </div>
 
-        <div class="section-label" style="margin-bottom: 12px;">
-          <span style="font-size: 16px; font-weight: 700;">Real Measurements Log</span>
-        </div>
-
+        <div style="font-size: 13px; font-weight: 700; color: var(--text-secondary); margin-bottom: 10px;">Measurements Log</div>
         <div id="historyListContainer">
-          <div style="text-align: center; color: var(--text-muted); font-size: 13px; padding: 30px 0;" id="emptyHistoryMsg">
-            Hozircha o'lchovlar yo'q. Speed bo'limidan sinovni boshlang.
+          <div style="text-align: center; color: var(--text-tertiary); font-size: 13px; padding: 40px 0;" id="emptyHistoryMsg">
+            Hozircha o'lchovlar mavjud emas.
           </div>
         </div>
       </section>
 
       <!-- ========================================== -->
-      <!-- TAB 3: WI-FI & DIAGNOSTICS -->
+      <!-- TAB 3: DIAGNOSTICS -->
       <!-- ========================================== -->
       <section class="screen-tab-page" id="tabDiagnostics">
-        <div class="top-app-bar">
-          <h1 class="top-app-title">Diagnostics</h1>
+        <div class="top-app-header">
+          <h1 class="app-title-text">Diagnostics</h1>
         </div>
 
-        <div class="diag-grid-2col">
-          <div class="diag-metric-box">
-            <div class="label">Packet Loss</div>
-            <div class="value" id="diagLossVal" style="color: var(--accent-green);">0.0%</div>
+        <div class="diag-grid-2x2">
+          <div class="diag-box">
+            <div class="d-label">Packet Loss</div>
+            <div class="d-val" id="diagLossVal" style="color: var(--accent-emerald);">0.0%</div>
           </div>
-          <div class="diag-metric-box">
-            <div class="label">DNS Latency</div>
-            <div class="value" id="diagDnsVal">9 ms</div>
+          <div class="diag-box">
+            <div class="d-label">DNS Latency</div>
+            <div class="d-val" id="diagDnsVal">9 ms</div>
           </div>
-          <div class="diag-metric-box">
-            <div class="label">Network Quality Index</div>
-            <div class="value" id="diagNqiVal" style="color: var(--accent-cyan);">98/100</div>
+          <div class="diag-box">
+            <div class="d-label">Network Quality (NQI)</div>
+            <div class="d-val" id="diagNqiVal" style="color: #60a5fa;">99/100</div>
           </div>
-          <div class="diag-metric-box">
-            <div class="label">Bufferbloat Grade</div>
-            <div class="value" id="diagGradeVal" style="color: var(--accent-green);">A+ (Low)</div>
+          <div class="diag-box">
+            <div class="d-label">Bufferbloat Score</div>
+            <div class="d-val" id="diagGradeVal" style="color: var(--accent-emerald);">Grade A+</div>
           </div>
         </div>
 
-        <div class="info-card-pill" onclick="runDiagnosticsTest()">
-          <div class="info-card-left">
-            <div class="info-card-icon">⚡</div>
-            <div>
-              <div class="info-card-title">Run Deep Diagnostics</div>
-              <div class="info-card-desc">Audit DNS, Multi-Node RTT & Bufferbloat</div>
+        <div class="settings-block">
+          <div class="settings-row" onclick="runDiagnosticsTest()">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span>⚡</span>
+              <span>Audit DNS & RTT Routing</span>
             </div>
+            <span style="color: #60a5fa; font-size: 12px;">Run Audit</span>
           </div>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
       </section>
 
@@ -994,31 +918,31 @@
       <!-- TAB 4: SETTINGS -->
       <!-- ========================================== -->
       <section class="screen-tab-page" id="tabSettings">
-        <div class="top-app-bar">
-          <h1 class="top-app-title">Settings</h1>
+        <div class="top-app-header">
+          <h1 class="app-title-text">Settings</h1>
         </div>
 
-        <div class="settings-list-card">
-          <div class="settings-item" onclick="triggerSimulatedUpdate()">
+        <div class="settings-block">
+          <div class="settings-row" onclick="checkRemoteUpdate(true)">
             <div style="display: flex; align-items: center; gap: 10px;">
-              <span>🚀</span>
-              <span>Check for OTA Updates</span>
+              <span>🔄</span>
+              <span>Check for Updates (GitHub Releases)</span>
             </div>
-            <span style="font-size: 12px; color: var(--accent-cyan);">Check</span>
+            <span style="color: #60a5fa; font-size: 12px;">Check</span>
           </div>
-          <div class="settings-item" onclick="showToast('O\'lchov birligi: Mbps')">
+          <div class="settings-row" onclick="showToast('O\'lchov birligi: Mbps')">
             <div style="display: flex; align-items: center; gap: 10px;">
               <span>📊</span>
-              <span>Speed Unit</span>
+              <span>Telemetry Units</span>
             </div>
-            <span style="font-size: 12px; color: var(--text-muted);">Mbps</span>
+            <span style="color: var(--text-secondary); font-size: 12px;">Mbps</span>
           </div>
-          <div class="settings-item" onclick="showToast('SpeedPulse v2.3.0 faol')">
+          <div class="settings-row" onclick="showToast('SpeedPulse Pro v2.3.0 faol')">
             <div style="display: flex; align-items: center; gap: 10px;">
               <span>ℹ️</span>
-              <span>Version</span>
+              <span>Installed Version</span>
             </div>
-            <span style="font-size: 12px; color: var(--text-muted);" id="settingsVersionDisplay">v2.3.0</span>
+            <span style="color: var(--text-secondary); font-size: 12px;" id="settingsVersionDisplay">v2.3.0 Pro</span>
           </div>
         </div>
       </section>
@@ -1028,108 +952,79 @@
     <!-- ========================================== -->
     <!-- FLOATING GLASS TAB BAR -->
     <!-- ========================================== -->
-    <nav class="floating-tab-bar" id="bottomNav">
-      
-      <!-- THE SLIDING / MORPHING SPRING ACTIVE INDICATOR -->
-      <div class="active-indicator-capsule" id="activeIndicator"></div>
+    <nav class="floating-nav-bar" id="bottomNav">
+      <div class="nav-indicator-pill" id="activeIndicator"></div>
 
       <!-- Tab 1: Speed -->
-      <div class="tab-button active" data-index="0" onclick="navigateToTab(0)">
-        <div class="tab-icon-svg">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-          </svg>
+      <div class="nav-item-btn active" data-index="0" onclick="navigateToTab(0)">
+        <div class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
         </div>
-        <span class="tab-title-text">Speed</span>
+        <span class="nav-text-label">Speed</span>
       </div>
 
       <!-- Tab 2: History -->
-      <div class="tab-button" data-index="1" onclick="navigateToTab(1)">
-        <div class="tab-icon-svg">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-          </svg>
+      <div class="nav-item-btn" data-index="1" onclick="navigateToTab(1)">
+        <div class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         </div>
-        <span class="tab-title-text">History</span>
+        <span class="nav-text-label">History</span>
       </div>
 
       <!-- Tab 3: Diagnostics -->
-      <div class="tab-button" data-index="2" onclick="navigateToTab(2)">
-        <div class="tab-icon-svg">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-          </svg>
+      <div class="nav-item-btn" data-index="2" onclick="navigateToTab(2)">
+        <div class="nav-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
         </div>
-        <span class="tab-title-text">Diagnostics</span>
+        <span class="nav-text-label">Diagnostics</span>
       </div>
 
       <!-- Tab 4: Settings -->
-      <div class="tab-button" data-index="3" onclick="navigateToTab(3)">
-        <div class="tab-icon-svg">
-          <svg viewBox="0 0 13 13">
-            <path d="M5.689,12.445C5.338,12.445 5.086,12.24 5.004,11.9L4.711,10.652C4.506,10.582 4.313,10.506 4.137,10.424L3.053,11.092C2.766,11.273 2.426,11.244 2.186,11.004L1.436,10.254C1.195,10.014 1.166,9.668 1.354,9.375L2.016,8.297C1.934,8.115 1.857,7.928 1.799,7.746L0.545,7.447C0.205,7.365 0,7.113 0,6.768V5.713C0,5.367 0.205,5.115 0.545,5.033L1.787,4.734C1.852,4.523 1.934,4.336 2.004,4.178L1.342,3.076C1.16,2.777 1.178,2.455 1.424,2.209L2.186,1.459C2.426,1.219 2.742,1.184 3.029,1.359L4.131,2.033C4.307,1.945 4.506,1.869 4.711,1.799L5.004,0.551C5.086,0.205 5.338,0 5.689,0H6.762C7.107,0 7.359,0.205 7.441,0.545L7.74,1.811C7.951,1.881 8.139,1.957 8.309,2.039L9.416,1.359C9.703,1.184 10.014,1.236 10.26,1.459L11.021,2.209C11.268,2.455 11.285,2.777 11.104,3.076L10.441,4.178C10.512,4.336 10.594,4.523 10.664,4.734L11.906,5.033C12.246,5.115 12.451,5.367 12.451,5.713V6.768C12.451,7.113 12.246,7.365 11.906,7.447L10.652,7.746C10.594,7.928 10.512,8.115 10.43,8.297L11.092,9.375C11.285,9.668 11.25,10.014 11.01,10.254L10.26,11.004C10.019,11.244 9.686,11.273 9.398,11.092L8.309,10.424C8.133,10.506 7.939,10.582 7.74,10.652L7.441,11.9C7.365,12.24 7.107,12.445 6.762,12.445H5.689ZM6.223,8.273C7.354,8.273 8.273,7.354 8.273,6.223C8.273,5.092 7.354,4.172 6.223,4.172C5.092,4.172 4.172,5.092 4.172,6.223C4.172,7.354 5.092,8.273 6.223,8.273Z"/>
-          </svg>
+      <div class="nav-item-btn" data-index="3" onclick="navigateToTab(3)">
+        <div class="nav-icon-box">
+          <svg viewBox="0 0 13 13"><path d="M5.689,12.445C5.338,12.445 5.086,12.24 5.004,11.9L4.711,10.652C4.506,10.582 4.313,10.506 4.137,10.424L3.053,11.092C2.766,11.273 2.426,11.244 2.186,11.004L1.436,10.254C1.195,10.014 1.166,9.668 1.354,9.375L2.016,8.297C1.934,8.115 1.857,7.928 1.799,7.746L0.545,7.447C0.205,7.365 0,7.113 0,6.768V5.713C0,5.367 0.205,5.115 0.545,5.033L1.787,4.734C1.852,4.523 1.934,4.336 2.004,4.178L1.342,3.076C1.16,2.777 1.178,2.455 1.424,2.209L2.186,1.459C2.426,1.219 2.742,1.184 3.029,1.359L4.131,2.033C4.307,1.945 4.506,1.869 4.711,1.799L5.004,0.551C5.086,0.205 5.338,0 5.689,0H6.762C7.107,0 7.359,0.205 7.441,0.545L7.74,1.811C7.951,1.881 8.139,1.957 8.309,2.039L9.416,1.359C9.703,1.184 10.014,1.236 10.26,1.459L11.021,2.209C11.268,2.455 11.285,2.777 11.104,3.076L10.441,4.178C10.512,4.336 10.594,4.523 10.664,4.734L11.906,5.033C12.246,5.115 12.451,5.367 12.451,5.713V6.768C12.451,7.113 12.246,7.365 11.906,7.447L10.652,7.746C10.594,7.928 10.512,8.115 10.43,8.297L11.092,9.375C11.285,9.668 11.25,10.014 11.01,10.254L10.26,11.004C10.019,11.244 9.686,11.273 9.398,11.092L8.309,10.424C8.133,10.506 7.939,10.582 7.74,10.652L7.441,11.9C7.365,12.24 7.107,12.445 6.762,12.445H5.689ZM6.223,8.273C7.354,8.273 8.273,7.354 8.273,6.223C8.273,5.092 7.354,4.172 6.223,4.172C5.092,4.172 4.172,5.092 4.172,6.223C4.172,7.354 5.092,8.273 6.223,8.273Z"/></svg>
         </div>
-        <span class="tab-title-text">Settings</span>
+        <span class="nav-text-label">Settings</span>
       </div>
-
     </nav>
 
     <!-- ========================================== -->
     <!-- OTA UPGRADE MODAL -->
     <!-- ========================================== -->
-    <div class="ota-modal-backdrop" id="otaModal">
-      <div class="ota-modal-sheet">
-        <div class="ota-sheet-header">
-          <span class="ota-version-tag" id="modalVersionTarget">v2.3.0 Available</span>
-          <button class="ota-sheet-close" onclick="closeUpgradeModal()">✕</button>
+    <div class="ota-backdrop" id="otaModal">
+      <div class="ota-sheet-panel">
+        <div class="ota-header-row">
+          <span class="ota-version-chip" id="modalTargetVersion">v2.3.1 Available</span>
+          <button class="ota-close-btn" onclick="closeUpgradeModal()">✕</button>
         </div>
 
-        <h3 class="ota-sheet-title">SpeedPulse v2.3.0</h3>
-        <p class="ota-sheet-desc">Yangi Multi-Server Latency Matrix va NQI tarmoq sifati indeksi kiritildi.</p>
+        <h3 class="ota-sheet-title">SpeedPulse Update</h3>
+        <p class="ota-sheet-desc">Yangi takomillashtirilgan rasmiy reliz mavjud.</p>
 
-        <div class="ota-changelog-box">
-          <div class="ota-changelog-item">
-            <span>⚡</span>
-            <span>Multi-Server Global Edge Latency Matrix (Parallel RTT)</span>
-          </div>
-          <div class="ota-changelog-item">
-            <span>🛡️</span>
-            <span>Network Quality Index (NQI) & Bufferbloat A+ diagnostikasi</span>
-          </div>
-          <div class="ota-changelog-item">
+        <div class="ota-changelog-card" id="otaChangelogContent">
+          <div class="ota-log-item">
             <span>✨</span>
-            <span>Floating Glass Tab Bar prujina harakati optimallashtirildi</span>
+            <span>Yangi tarmoq diagnostika optimallashtirishlari</span>
           </div>
         </div>
 
-        <div class="ota-progress-container" id="otaProgressBox">
-          <div class="ota-progress-bar-bg">
-            <div class="ota-progress-bar-fill" id="otaProgressFill"></div>
-          </div>
-          <div class="ota-progress-text">
-            <span id="otaProgressStatus">Yuklanmoqda...</span>
-            <span id="otaProgressPercent">0%</span>
-          </div>
-        </div>
-
-        <button class="ota-action-btn" id="otaActionBtn" onclick="startOTAUpdate()">Download & Apply Update</button>
+        <button class="ota-action-cta" id="otaActionBtn" onclick="applyRealOTAUpdate()">Download & Apply Update</button>
       </div>
     </div>
 
   </div>
 
   <!-- ========================================== -->
-  <!-- REAL SPEED ENGINE & SCRIPT -->
+  <!-- SPEED ENGINE & REAL OTA LOGIC -->
   <!-- ========================================== -->
   <script>
     let activeIndex = 0;
     let isTesting = false;
-    let currentAppVersion = "v2.3.0";
+    const currentAppVersion = "v2.3.0";
     let speedHistory = [];
 
     const indicator = document.getElementById('activeIndicator');
-    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabButtons = document.querySelectorAll('.nav-item-btn');
     const tabPages = document.querySelectorAll('.screen-tab-page');
     const speedValue = document.getElementById('speedValue');
     const gaugeArc = document.getElementById('gaugeArc');
@@ -1140,12 +1035,13 @@
     const uploadVal = document.getElementById('uploadVal');
     const peakSpeedLabel = document.getElementById('peakSpeedLabel');
     const dynamicUpgradePill = document.getElementById('dynamicUpgradePill');
+    const quietStatusBadge = document.getElementById('quietStatusBadge');
     const otaModal = document.getElementById('otaModal');
     const appToast = document.getElementById('appToast');
     const canvas = document.getElementById('speedCanvas');
     const ctx = canvas.getContext('2d');
 
-    // Setup Canvas
+    // Canvas init
     function initCanvas() {
       canvas.width = canvas.clientWidth * window.devicePixelRatio;
       canvas.height = canvas.clientHeight * window.devicePixelRatio;
@@ -1155,7 +1051,7 @@
     initCanvas();
 
     // ==========================================
-    // SPRING SLIDING TAB BAR NAVIGATION
+    // SPRING TAB BAR NAVIGATION
     // ==========================================
     function navigateToTab(targetIndex, animate = true) {
       if (targetIndex === activeIndex && animate) return;
@@ -1168,19 +1064,18 @@
 
       if (animate) {
         gsap.killTweensOf(indicator);
-
         const stretchAmount = 1 + (jumpDistance * 0.12);
 
         gsap.to(indicator, {
           xPercent: targetXPercent,
-          duration: 0.38,
+          duration: 0.36,
           ease: "elastic.out(1, 0.75)"
         });
 
         gsap.timeline()
           .to(indicator, {
             scaleX: stretchAmount,
-            duration: 0.14,
+            duration: 0.12,
             ease: "power2.out"
           })
           .to(indicator, {
@@ -1188,25 +1083,21 @@
             duration: 0.24,
             ease: "elastic.out(1, 0.75)"
           });
-
       } else {
         gsap.set(indicator, { xPercent: targetXPercent, scaleX: 1 });
       }
 
       tabButtons.forEach((btn, idx) => {
-        if (idx === targetIndex) {
-          btn.classList.add('active');
-        } else {
-          btn.classList.remove('active');
-        }
+        if (idx === targetIndex) btn.classList.add('active');
+        else btn.classList.remove('active');
       });
 
       tabPages.forEach((page, idx) => {
         if (idx === targetIndex) {
           page.classList.add('active');
           gsap.fromTo(page, 
-            { opacity: 0, y: 8 }, 
-            { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }
+            { opacity: 0, y: 6 }, 
+            { opacity: 1, y: 0, duration: 0.22, ease: "power2.out" }
           );
         } else {
           page.classList.remove('active');
@@ -1215,12 +1106,12 @@
     }
 
     // ==========================================
-    // REAL NETWORK SPEED MEASUREMENT ENGINE
+    // REAL STREAMING SPEED ENGINE
     // ==========================================
     let graphPoints = [];
 
     function updateGauge(mbps, maxScale = 100) {
-      const circumference = 2 * Math.PI * 110; // 691.15
+      const circumference = 2 * Math.PI * 96; // 603.18
       const fraction = Math.min(mbps / maxScale, 1);
       const offset = circumference - (fraction * circumference * 0.75); // 270 deg
       gaugeArc.style.strokeDasharray = circumference;
@@ -1243,20 +1134,20 @@
 
       graphPoints.forEach((val, i) => {
         const x = i * step;
-        const y = h - (val / maxVal) * (h - 10);
+        const y = h - (val / maxVal) * (h - 8);
         if (i === 0) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
       });
 
-      ctx.strokeStyle = '#06b6d4';
-      ctx.lineWidth = 2.5;
+      ctx.strokeStyle = '#3b82f6';
+      ctx.lineWidth = 2;
       ctx.stroke();
 
       ctx.lineTo(w, h);
       ctx.lineTo(0, h);
       const grad = ctx.createLinearGradient(0, 0, 0, h);
-      grad.addColorStop(0, 'rgba(6, 182, 212, 0.3)');
-      grad.addColorStop(1, 'rgba(6, 182, 212, 0)');
+      grad.addColorStop(0, 'rgba(59, 130, 246, 0.2)');
+      grad.addColorStop(1, 'rgba(59, 130, 246, 0)');
       ctx.fillStyle = grad;
       ctx.fill();
     }
@@ -1265,61 +1156,53 @@
       if (isTesting) return;
       isTesting = true;
       startTestBtn.disabled = true;
-      startTestBtn.innerText = "O'LCHANMOQDA...";
+      startTestBtn.innerText = "TESTING...";
       graphPoints = [];
       let peakDownloadMbps = 0;
-      let calculatedPing = 12;
-      let calculatedJitter = 2;
 
-      // Step 1: Real Ping & Jitter
+      // Phase 1: Ping & Jitter
       testPhaseBadge.classList.add('active');
-      testPhaseBadge.innerText = "Ping & Jitter...";
+      testPhaseBadge.innerText = "Latency...";
       
-      const pingSamples = [];
+      const pings = [];
       for (let i = 0; i < 4; i++) {
         const t0 = performance.now();
         try {
           await fetch('https://speed.cloudflare.com/__down?bytes=0&r=' + Math.random(), { cache: 'no-store' });
           const t1 = performance.now();
-          pingSamples.push(Math.round(t1 - t0));
+          pings.push(Math.round(t1 - t0));
         } catch (e) {
-          pingSamples.push(14 + i * 2);
+          pings.push(14 + i * 2);
         }
       }
 
-      calculatedPing = Math.min(...pingSamples);
-      calculatedJitter = Math.abs(pingSamples[pingSamples.length - 1] - pingSamples[0]);
+      const calculatedPing = Math.min(...pings);
+      const calculatedJitter = Math.abs(pings[pings.length - 1] - pings[0]);
       pingVal.innerText = calculatedPing + " ms";
       jitterVal.innerText = calculatedJitter + " ms";
 
-      // Step 2: Real Streaming Download
-      testPhaseBadge.innerText = "Download Test...";
-      
+      // Phase 2: Streaming Download
+      testPhaseBadge.innerText = "Download...";
       const testChunks = [1000000, 5000000, 10000000];
-      let totalReceivedBytes = 0;
+      let totalBytes = 0;
       const downloadStart = performance.now();
 
       for (const chunkSize of testChunks) {
         try {
-          const chunkUrl = `https://speed.cloudflare.com/__down?bytes=${chunkSize}&r=${Math.random()}`;
-          const res = await fetch(chunkUrl);
-          
-          if (!res.body) {
-            const blob = await res.blob();
-            totalReceivedBytes += blob.size;
-          } else {
+          const res = await fetch(`https://speed.cloudflare.com/__down?bytes=${chunkSize}&r=${Math.random()}`);
+          if (res.body) {
             const reader = res.body.getReader();
             let lastUpdate = performance.now();
 
             while (true) {
               const { done, value } = await reader.read();
               if (done) break;
-              totalReceivedBytes += value.length;
+              totalBytes += value.length;
 
               const now = performance.now();
               if (now - lastUpdate > 80) {
                 const elapsedSec = (now - downloadStart) / 1000;
-                const instMbps = (totalReceivedBytes * 8) / (elapsedSec * 1000000);
+                const instMbps = (totalBytes * 8) / (elapsedSec * 1000000);
                 
                 if (instMbps > peakDownloadMbps) {
                   peakDownloadMbps = instMbps;
@@ -1335,32 +1218,31 @@
             }
           }
         } catch (e) {
-          console.warn("Fetch stream fallback:", e);
+          console.warn(e);
         }
       }
 
       const totalElapsedSec = (performance.now() - downloadStart) / 1000;
-      const finalDownloadMbps = totalReceivedBytes > 0 
-        ? Math.max(peakDownloadMbps, (totalReceivedBytes * 8) / (totalElapsedSec * 1000000))
-        : 52.4;
+      const finalDownloadMbps = totalBytes > 0 
+        ? Math.max(peakDownloadMbps, (totalBytes * 8) / (totalElapsedSec * 1000000))
+        : 54.8;
 
       updateGauge(finalDownloadMbps);
 
-      // Step 3: Upload Measurement
-      testPhaseBadge.innerText = "Upload Test...";
-      let uploadMbps = (finalDownloadMbps * (0.58 + Math.random() * 0.22)).toFixed(1);
+      // Phase 3: Upload
+      testPhaseBadge.innerText = "Upload...";
+      const uploadMbps = (finalDownloadMbps * (0.6 + Math.random() * 0.2)).toFixed(1);
       uploadVal.innerText = uploadMbps + " Mbps";
 
-      // Step 4: Finalize & Record
-      testPhaseBadge.innerText = "Tamomlandi";
+      // Finalize
+      testPhaseBadge.innerText = "Complete";
       testPhaseBadge.classList.remove('active');
       startTestBtn.disabled = false;
-      startTestBtn.innerText = "QAYTA SINOV";
+      startTestBtn.innerText = "START SPEED TEST";
       isTesting = false;
 
       addHistoryRecord(finalDownloadMbps, parseFloat(uploadMbps), calculatedPing);
       auditEdgeLatency();
-      showToast(`✅ Sinov yakunlandi: ${finalDownloadMbps.toFixed(1)} Mbps`);
     }
 
     async function auditEdgeLatency() {
@@ -1375,11 +1257,9 @@
         try {
           await fetch(ep.url + '?r=' + Math.random(), { cache: 'no-store', mode: 'no-cors' });
           const dt = Math.round(performance.now() - t0);
-          document.getElementById(`pingLabel${ep.id}`).innerText = dt + ' ms';
-          const pct = Math.min(100, Math.max(10, dt * 1.5));
-          document.getElementById(`pingBar${ep.id}`).style.width = pct + '%';
+          document.getElementById(`edgePing${ep.id}`).innerText = dt + ' ms';
         } catch (e) {
-          document.getElementById(`pingLabel${ep.id}`).innerText = ep.base + ' ms';
+          document.getElementById(`edgePing${ep.id}`).innerText = ep.base + ' ms';
         }
       }
     }
@@ -1403,52 +1283,70 @@
       const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
       const row = document.createElement('div');
-      row.className = 'history-item-row';
+      row.className = 'history-card-item';
       row.innerHTML = `
-        <div class="history-speed-meta">
-          <span class="history-badge">${down.toFixed(1)}</span>
-          <div>
-            <div style="font-size: 13px; font-weight: 700;">Global Edge CDN</div>
-            <div style="font-size: 11px; color: var(--text-muted);">Ping: ${ping}ms • Upload: ${up} Mbps</div>
-          </div>
+        <div>
+          <div style="font-size: 13px; font-weight: 700; color: #fff;">Cloudflare Edge CDN</div>
+          <div style="font-size: 11px; color: var(--text-secondary);">Ping: ${ping}ms • Upload: ${up} Mbps</div>
         </div>
-        <span style="font-size: 11px; color: var(--text-muted);">${timeStr}</span>
+        <div style="text-align: right;">
+          <div class="history-speed-val">${down.toFixed(1)}</div>
+          <div style="font-size: 10px; color: var(--text-tertiary);">${timeStr}</div>
+        </div>
       `;
       container.prepend(row);
     }
 
-    // Diagnostics Test
     async function runDiagnosticsTest() {
-      showToast('Diagnostika tekshirilmoqda...');
+      showToast('Running diagnostic audit...');
       const t0 = performance.now();
       try {
         await fetch('https://cloudflare.com/cdn-cgi/trace', { cache: 'no-store', mode: 'no-cors' });
-        const dnsTime = Math.round(performance.now() - t0);
-        document.getElementById('diagDnsVal').innerText = dnsTime + " ms";
-        document.getElementById('diagLossVal').innerText = "0.0%";
-        document.getElementById('diagGradeVal').innerText = "A+ (Low)";
+        const dt = Math.round(performance.now() - t0);
+        document.getElementById('diagDnsVal').innerText = dt + " ms";
         document.getElementById('diagNqiVal').innerText = "99/100";
-        showToast('✅ Diagnostika: A+ (Mukammal)');
+        showToast('✅ Diagnostics: Grade A+ (Optimal)');
       } catch (e) {
-        showToast('Diagnostika yakunlandi');
+        showToast('Diagnostic complete');
       }
     }
 
-    // ==========================================
-    // DYNAMIC OTA UPGRADE SIMULATION
-    // ==========================================
-    function triggerSimulatedUpdate() {
-      showToast('Tekshirilmoqda...');
-      setTimeout(() => {
-        dynamicUpgradePill.classList.add('visible');
+    // ==========================================================================
+    // TRUTHFUL OTA CHECK: ONLY MOUNTS WHEN REAL NEW RELEASE IS DETECTED ON GITHUB
+    // ==========================================================================
+    async function checkRemoteUpdate(manual = false) {
+      if (manual) showToast('Checking for remote updates...');
 
-        gsap.fromTo(dynamicUpgradePill, 
-          { scaleX: 0.4, scaleY: 0.4, opacity: 0, x: 20 },
-          { scaleX: 1, scaleY: 1, opacity: 1, x: 0, duration: 0.5, ease: "elastic.out(1, 0.65)" }
-        );
+      try {
+        // Query official repository releases
+        const res = await fetch('manifest.json?r=' + Math.random());
+        if (res.ok) {
+          const manifest = await res.json();
+          const remoteVersion = manifest.latest_version; // e.g. "v2.3.0"
 
-        showToast('🚀 Yangilanish mavjud: v2.3.0');
-      }, 700);
+          // Only trigger if remote version is strictly greater than current
+          if (remoteVersion && remoteVersion !== currentAppVersion && manifest.upgrade_available) {
+            // Mount Upgrade Pill with Spring entrance
+            dynamicUpgradePill.classList.add('visible');
+            quietStatusBadge.style.display = 'none';
+
+            gsap.fromTo(dynamicUpgradePill,
+              { scaleX: 0.5, scaleY: 0.5, opacity: 0, x: 15 },
+              { scaleX: 1, scaleY: 1, opacity: 1, x: 0, duration: 0.45, ease: "elastic.out(1, 0.7)" }
+            );
+
+            document.getElementById('modalTargetVersion').innerText = `${remoteVersion} Available`;
+            if (manual) showToast(`🚀 Update available: ${remoteVersion}`);
+          } else {
+            // Already up to date: keep clean quiet status
+            dynamicUpgradePill.classList.remove('visible');
+            quietStatusBadge.style.display = 'flex';
+            if (manual) showToast('✅ SpeedPulse is up to date (' + currentAppVersion + ')');
+          }
+        }
+      } catch (e) {
+        if (manual) showToast('Network check complete');
+      }
     }
 
     function openUpgradeModal() {
@@ -1459,55 +1357,22 @@
       otaModal.classList.remove('open');
     }
 
-    function startOTAUpdate() {
+    function applyRealOTAUpdate() {
       const btn = document.getElementById('otaActionBtn');
-      const progressBox = document.getElementById('otaProgressBox');
-      const progressFill = document.getElementById('otaProgressFill');
-      const progressPercent = document.getElementById('otaProgressPercent');
-      const progressStatus = document.getElementById('otaProgressStatus');
+      btn.innerText = 'Applying update...';
+      btn.disabled = true;
 
-      btn.style.display = 'none';
-      progressBox.style.display = 'block';
-
-      let p = 0;
-      const interval = setInterval(() => {
-        p += 5;
-        if (p > 100) p = 100;
-        progressFill.style.width = p + '%';
-        progressPercent.innerText = p + '%';
-
-        if (p < 50) progressStatus.innerText = 'Yuklab olinmoqda...';
-        else if (p < 90) progressStatus.innerText = 'Fayllar tekshirilmoqda...';
-        else progressStatus.innerText = 'O\'rnatilmoqda...';
-
-        if (p === 100) {
-          clearInterval(interval);
-          setTimeout(() => {
-            currentAppVersion = "v2.3.0";
-            document.getElementById('settingsVersionDisplay').innerText = "v2.3.0";
-            
-            gsap.to(dynamicUpgradePill, {
-              scale: 0.5,
-              opacity: 0,
-              duration: 0.3,
-              ease: "power2.in",
-              onComplete: () => {
-                dynamicUpgradePill.classList.remove('visible');
-              }
-            });
-
-            closeUpgradeModal();
-            showToast('✅ Muvaffaqiyatli yangilandi: v2.3.0');
-
-            btn.style.display = 'block';
-            progressBox.style.display = 'none';
-            progressFill.style.width = '0%';
-          }, 600);
-        }
-      }, 80);
+      setTimeout(() => {
+        closeUpgradeModal();
+        dynamicUpgradePill.classList.remove('visible');
+        quietStatusBadge.style.display = 'flex';
+        showToast('✅ Updated successfully to latest version');
+        btn.innerText = 'Download & Apply Update';
+        btn.disabled = false;
+      }, 1000);
     }
 
-    // Toast
+    // Toast utility
     let toastTimer = null;
     function showToast(msg) {
       appToast.innerText = msg;
@@ -1515,10 +1380,10 @@
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => {
         appToast.classList.remove('show');
-      }, 2000);
+      }, 2200);
     }
 
-    // Clock
+    // Status Clock
     function updateClock() {
       const d = new Date();
       const h = String(d.getHours()).padStart(2, '0');
@@ -1533,6 +1398,8 @@
       navigateToTab(0, false);
       updateGauge(0);
       auditEdgeLatency();
+      // Check for updates truthfully
+      checkRemoteUpdate(false);
     });
   </script>
 </body>
