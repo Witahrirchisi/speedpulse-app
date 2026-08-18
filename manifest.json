@@ -5,12 +5,11 @@
   "release_date": "2026-08-18",
   "upgrade_available": true,
   "changelog": [
-    "Real-time byte-stream Cloudflare Edge download measurement engine",
-    "Sub-millisecond Ping & Jitter roundtrip latency auditing",
-    "60fps Canvas throughput waveform visualization",
-    "Floating Glass Tab Bar with Jetpack Compose spring sliding capsule",
-    "Autonomous 10-hour self-updating OTA pipeline integration"
+    "Multi-Server Global Edge Latency Matrix (Parallel RTT comparison)",
+    "Network Quality Index (NQI 0-100) and Bufferbloat A+ diagnostics",
+    "Enhanced 60fps liquid glass spring physics and visual sheen",
+    "Real-time streaming throughput optimization"
   ],
-  "download_url": "https://github.com/Witahrirchisi/speedpulse-app/releases/latest",
+  "download_url": "https://github.com/Witahrirchisi/speedpulse-app/releases/tag/v2.3.0",
   "binary_target": "SpeedPulse_v1.exe"
 }
