@@ -1,0 +1,16 @@
+{
+  "app_name": "SpeedPulse",
+  "current_version": "v2.2.6",
+  "latest_version": "v2.3.0",
+  "release_date": "2026-08-18",
+  "upgrade_available": true,
+  "changelog": [
+    "Real-time byte-stream Cloudflare Edge download measurement engine",
+    "Sub-millisecond Ping & Jitter roundtrip latency auditing",
+    "60fps Canvas throughput waveform visualization",
+    "Floating Glass Tab Bar with Jetpack Compose spring sliding capsule",
+    "Autonomous 10-hour self-updating OTA pipeline integration"
+  ],
+  "download_url": "https://github.com/Witahrirchisi/speedpulse-app/releases/latest",
+  "binary_target": "SpeedPulse_v1.exe"
+}
