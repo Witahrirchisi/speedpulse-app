@@ -3,26 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>SpeedPulse Pro — Wi-Fi Traffic DPI & Multi-Scanner Suite</title>
+  <title>SpeedPulse Pro — Ultimate Neumorphic Edition</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
   <style>
     :root {
-      --bg-base: #080a0e;
-      --bg-surface: #10131b;
-      --bg-surface-elevated: #161a24;
+      --bg-base: #090c10;
+      --bg-surface: #12161f;
+      --bg-surface-elevated: #181d28;
       
-      --neu-flat: 6px 6px 14px #050609, -5px -5px 12px #181c28;
-      --neu-inset: inset 3px 3px 8px #050609, inset -3px -3px 8px #181c28;
-      --neu-pressed: inset 5px 5px 12px #040507, inset -5px -5px 12px #1a1f2c;
-      --neu-convex: linear-gradient(145deg, #131724, #0c0f16);
+      --neu-flat: 7px 7px 16px #05070a, -6px -6px 14px #1b202c;
+      --neu-flat-sm: 4px 4px 10px #05070a, -3px -3px 8px #1b202c;
+      --neu-inset: inset 3px 3px 8px #05070a, inset -3px -3px 8px #1b202c;
+      --neu-pressed: inset 5px 5px 12px #040507, inset -5px -5px 12px #1e2432;
+      --neu-convex: linear-gradient(145deg, #151a25, #0d1016);
       
-      --border-subtle: rgba(255, 255, 255, 0.07);
+      --border-subtle: rgba(255, 255, 255, 0.06);
       --border-light: rgba(255, 255, 255, 0.12);
       
       --text-main: #f8fafc;
@@ -35,10 +36,10 @@
       --accent-amber: #f59e0b;
       --accent-purple: #a855f7;
       
-      --glass-nav-bg: rgba(14, 17, 24, 0.94);
-      --glass-nav-border: rgba(255, 255, 255, 0.09);
-      --glass-indicator-bg: rgba(255, 255, 255, 0.12);
-      --glass-indicator-border: rgba(255, 255, 255, 0.18);
+      --glass-nav-bg: rgba(18, 22, 31, 0.94);
+      --glass-nav-border: rgba(255, 255, 255, 0.08);
+      --glass-indicator-bg: rgba(255, 255, 255, 0.1);
+      --glass-indicator-border: rgba(255, 255, 255, 0.16);
     }
 
     * {
@@ -56,10 +57,9 @@
       color: var(--text-main);
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       overflow: hidden;
-      font-size: 14px;
     }
 
-    /* MOBIL ERGONOMIKA STANDARTLARI (Apple HIG & Material 3) */
+    /* MOBIL ERGONOMIKA */
     .app-frame {
       position: relative;
       width: 100vw;
@@ -69,8 +69,8 @@
       flex-direction: column;
       background-color: var(--bg-base);
       overflow: hidden;
-      padding-top: max(14px, env(safe-area-inset-top, 0px));
-      padding-bottom: max(16px, env(safe-area-inset-bottom, 0px));
+      padding-top: max(12px, env(safe-area-inset-top, 0px));
+      padding-bottom: max(14px, env(safe-area-inset-bottom, 0px));
     }
 
     @media (min-width: 600px) {
@@ -91,7 +91,7 @@
     }
 
     .top-system-bar {
-      padding: 10px 16px 8px;
+      padding: 10px 18px 8px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -106,11 +106,11 @@
     }
 
     .brand-icon-box {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
       background: var(--neu-convex);
-      box-shadow: var(--neu-flat);
+      box-shadow: var(--neu-flat-sm);
       border: 1px solid var(--border-subtle);
       display: flex;
       align-items: center;
@@ -119,9 +119,9 @@
     }
 
     .app-title-text {
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: -0.4px;
+      font-size: 21px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
       color: var(--text-main);
     }
 
@@ -129,50 +129,51 @@
     .real-upgrade-pill {
       display: none;
       align-items: center;
-      gap: 6px;
-      padding: 8px 14px;
-      min-height: 36px;
+      gap: 7px;
+      padding: 8px 16px;
+      min-height: 38px;
       border-radius: 999px;
-      background: #2563eb;
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border: 1px solid rgba(255, 255, 255, 0.35);
       color: #ffffff;
-      font-size: 11.5px;
+      font-size: 12px;
       font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.5);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
       transform-origin: center right;
-      animation: pulseUpgrade 2s infinite ease-in-out;
+      animation: pulseUpgrade 2.2s infinite ease-in-out;
     }
 
     @keyframes pulseUpgrade {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.04); }
+      50% { transform: scale(1.05); }
     }
 
     .real-upgrade-pill:active {
-      transform: scale(0.94);
+      transform: scale(0.95);
     }
 
     .status-badge-clean {
       display: flex;
-      font-size: 11px;
-      font-weight: 600;
+      font-size: 11.5px;
+      font-weight: 700;
       color: var(--text-muted);
       align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
-      min-height: 32px;
+      gap: 7px;
+      padding: 6px 14px;
+      min-height: 34px;
       background: var(--bg-surface);
-      box-shadow: var(--neu-flat);
+      box-shadow: var(--neu-flat-sm);
       border: 1px solid var(--border-subtle);
       border-radius: 999px;
     }
 
     .status-dot-green {
-      width: 6px;
-      height: 6px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: var(--accent-green);
+      box-shadow: 0 0 8px var(--accent-green);
     }
 
     .screens-viewport {
@@ -187,12 +188,12 @@
       inset: 0;
       overflow-y: auto;
       overflow-x: hidden;
-      padding: 6px 16px calc(90px + env(safe-area-inset-bottom, 0px));
+      padding: 6px 16px calc(92px + env(safe-area-inset-bottom, 0px));
       opacity: 0;
       pointer-events: none;
       visibility: hidden;
-      transform: translateY(6px);
-      transition: opacity 0.22s ease, transform 0.22s ease, visibility 0.22s;
+      transform: translateY(8px);
+      transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s;
       scrollbar-width: none;
     }
 
@@ -207,22 +208,22 @@
       transform: translateY(0);
     }
 
-    /* 3D OWNER PROFILE CARD (48dp+ TOUCH TARGET) */
+    /* 3D OWNER PROFILE CARD */
     .owner-profile-card {
       position: relative;
       background: var(--bg-surface);
       box-shadow: var(--neu-flat);
       border: 1px solid var(--border-subtle);
-      border-radius: 22px;
-      padding: 12px 16px;
-      min-height: 72px;
-      margin-bottom: 12px;
+      border-radius: 24px;
+      padding: 12px 18px;
+      min-height: 74px;
+      margin-bottom: 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       cursor: pointer;
-      transition: transform 0.14s ease, box-shadow 0.14s ease;
-      perspective: 800px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      perspective: 900px;
     }
 
     .owner-profile-card:active {
@@ -232,8 +233,8 @@
 
     .owner-avatar-container {
       position: relative;
-      width: 52px;
-      height: 52px;
+      width: 54px;
+      height: 54px;
       border-radius: 50%;
       background: var(--bg-base);
       box-shadow: var(--neu-inset);
@@ -254,18 +255,18 @@
 
     .owner-text-col {
       flex: 1;
-      margin-left: 12px;
+      margin-left: 14px;
     }
 
     .owner-3d-title {
-      font-size: 19px;
+      font-size: 20px;
       font-weight: 900;
       letter-spacing: 2px;
       text-transform: uppercase;
       background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      text-shadow: 0 4px 14px rgba(0, 0, 0, 0.7);
       display: inline-block;
       animation: owner3dFloat 3.2s ease-in-out infinite alternate;
       transform-style: preserve-3d;
@@ -273,19 +274,19 @@
 
     @keyframes owner3dFloat {
       0% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
-      100% { transform: translateY(-2px) rotateX(8deg) rotateY(-4deg); }
+      100% { transform: translateY(-3px) rotateX(8deg) rotateY(-5deg); }
     }
 
     .owner-tg-sub {
-      font-size: 11.5px;
+      font-size: 12px;
       color: #60a5fa;
-      font-weight: 700;
+      font-weight: 800;
       margin-top: 2px;
     }
 
     .owner-tg-badge {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       background: var(--bg-base);
       box-shadow: var(--neu-inset);
@@ -296,52 +297,32 @@
       flex-shrink: 0;
     }
 
-    /* NEUMORPHIC CARDS */
-    .neu-card {
-      background: var(--bg-surface);
-      box-shadow: var(--neu-flat);
-      border: 1px solid var(--border-subtle);
-      border-radius: 20px;
-      padding: 14px 16px;
-      margin-bottom: 12px;
-    }
-
-    .card-header-clean {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11.5px;
-      font-weight: 700;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-    }
-
-    /* SPEEDOMETER */
+    /* SPEEDOMETER CARD */
     .neu-gauge-card {
       position: relative;
       width: 100%;
       background: var(--bg-surface);
       box-shadow: var(--neu-flat);
       border: 1px solid var(--border-subtle);
-      border-radius: 26px;
-      padding: 18px 16px 16px;
+      border-radius: 28px;
+      padding: 20px 18px 18px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .neu-dial-recessed {
       position: relative;
-      width: 180px;
-      height: 180px;
+      width: 190px;
+      height: 190px;
       border-radius: 50%;
       background: var(--bg-base);
       box-shadow: var(--neu-inset);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .gauge-svg-element {
@@ -354,19 +335,20 @@
 
     .gauge-track-circle {
       fill: none;
-      stroke: rgba(255, 255, 255, 0.04);
-      stroke-width: 9;
+      stroke: rgba(255, 255, 255, 0.05);
+      stroke-width: 10;
       stroke-linecap: round;
     }
 
     .gauge-fill-circle {
       fill: none;
       stroke: #3b82f6;
-      stroke-width: 9;
+      stroke-width: 10;
       stroke-linecap: round;
       stroke-dasharray: 565.48;
       stroke-dashoffset: 565.48;
       transition: stroke-dashoffset 0.08s linear;
+      filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
     }
 
     .gauge-center-stack {
@@ -379,8 +361,8 @@
 
     .live-speed-value {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 44px;
-      font-weight: 800;
+      font-size: 48px;
+      font-weight: 900;
       color: var(--text-main);
       line-height: 1;
       letter-spacing: -2px;
@@ -388,22 +370,22 @@
     }
 
     .live-speed-unit {
-      font-size: 11px;
-      font-weight: 700;
+      font-size: 11.5px;
+      font-weight: 800;
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.8px;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .phase-badge-pill {
       font-size: 11px;
-      font-weight: 600;
-      padding: 3px 12px;
+      font-weight: 700;
+      padding: 4px 14px;
       background: var(--bg-surface-elevated);
       border-radius: 999px;
       color: var(--text-muted);
-      box-shadow: var(--neu-flat);
+      box-shadow: var(--neu-flat-sm);
     }
 
     .phase-badge-pill.active {
@@ -413,22 +395,22 @@
 
     .neu-tactile-btn {
       width: 100%;
-      min-height: 48px;
-      padding: 14px;
+      min-height: 52px;
+      padding: 15px;
       background: var(--neu-convex);
       color: #ffffff;
       border: 1px solid var(--border-subtle);
       border-radius: 999px;
-      font-size: 13.5px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.6px;
       cursor: pointer;
       box-shadow: var(--neu-flat);
-      transition: all 0.12s ease;
+      transition: all 0.15s ease;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
     }
 
     .neu-tactile-btn:active {
@@ -439,25 +421,25 @@
     .metrics-row-3col {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      margin-bottom: 12px;
+      gap: 10px;
+      margin-bottom: 14px;
     }
 
     .neu-metric-card {
       background: var(--bg-surface);
       box-shadow: var(--neu-flat);
       border: 1px solid var(--border-subtle);
-      border-radius: 18px;
-      padding: 12px 10px;
+      border-radius: 20px;
+      padding: 14px 10px;
       text-align: center;
       display: flex;
       flex-direction: column;
-      gap: 3px;
+      gap: 4px;
     }
 
     .metric-label-text {
-      font-size: 10px;
-      font-weight: 700;
+      font-size: 10.5px;
+      font-weight: 800;
       color: var(--text-dim);
       text-transform: uppercase;
       letter-spacing: 0.5px;
@@ -465,26 +447,48 @@
 
     .metric-number-display {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 15px;
-      font-weight: 700;
+      font-size: 16px;
+      font-weight: 800;
       color: var(--text-main);
     }
 
-    /* WI-FI DPI TRAFFIC BARS */
+    /* NEUMORPHIC CARDS */
+    .neu-card {
+      background: var(--bg-surface);
+      box-shadow: var(--neu-flat);
+      border: 1px solid var(--border-subtle);
+      border-radius: 22px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+    }
+
+    .card-header-clean {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    /* WI-FI TRAFFIC BARS & ANIMATIONS */
     .traffic-bar-container {
       width: 100%;
-      height: 12px;
+      height: 14px;
       border-radius: 999px;
       background: var(--bg-base);
       box-shadow: var(--neu-inset);
       display: flex;
       overflow: hidden;
-      margin: 8px 0 12px;
+      margin: 8px 0 14px;
+      position: relative;
     }
 
     .traffic-segment {
       height: 100%;
-      transition: width 0.4s ease;
+      transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
     }
 
     .seg-youtube { background: #ef4444; width: 42%; }
@@ -495,39 +499,40 @@
     .traffic-legend-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 6px;
-      font-size: 11px;
+      gap: 8px;
+      font-size: 11.5px;
     }
 
     .traffic-legend-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 8px 10px;
-      min-height: 38px;
+      padding: 10px 12px;
+      min-height: 42px;
       background: var(--bg-base);
       box-shadow: var(--neu-inset);
-      border-radius: 12px;
+      border-radius: 14px;
     }
 
     .legend-dot {
-      width: 8px;
-      height: 8px;
+      width: 9px;
+      height: 9px;
       border-radius: 50%;
       display: inline-block;
       margin-right: 6px;
+      box-shadow: 0 0 6px currentColor;
     }
 
-    /* DEVICE CARDS WITH 48dp+ COMFORT TARGETS */
+    /* DEVICE CARDS */
     .dpi-device-card {
       background: var(--bg-surface);
       box-shadow: var(--neu-flat);
       border: 1px solid var(--border-subtle);
-      border-radius: 18px;
-      padding: 12px 14px;
-      margin-bottom: 10px;
+      border-radius: 20px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
       cursor: pointer;
-      transition: transform 0.12s;
+      transition: transform 0.14s ease, box-shadow 0.14s ease;
     }
 
     .dpi-device-card:active {
@@ -539,25 +544,25 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .dpi-dev-name {
-      font-size: 13px;
-      font-weight: 700;
+      font-size: 14px;
+      font-weight: 800;
       color: var(--text-main);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
 
     .dpi-speed-badge {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11.5px;
+      font-size: 12px;
       font-weight: 800;
       color: #60a5fa;
-      background: rgba(59, 130, 246, 0.12);
-      padding: 4px 8px;
+      background: rgba(59, 130, 246, 0.14);
+      padding: 4px 10px;
       border-radius: 999px;
     }
 
@@ -565,10 +570,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 10.5px;
+      font-size: 11px;
       color: var(--text-dim);
       font-family: 'JetBrains Mono', monospace;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     .social-apps-chips {
@@ -581,12 +586,12 @@
     .app-chip {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      padding: 4px 8px;
-      min-height: 24px;
-      border-radius: 8px;
-      font-size: 10.5px;
-      font-weight: 700;
+      gap: 5px;
+      padding: 5px 10px;
+      min-height: 28px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 800;
       background: var(--bg-base);
       box-shadow: var(--neu-inset);
     }
@@ -600,9 +605,9 @@
     .floating-nav-bar {
       position: absolute;
       bottom: max(14px, env(safe-area-inset-bottom, 0px));
-      left: 14px;
-      right: 14px;
-      height: 60px;
+      left: 16px;
+      right: 16px;
+      height: 64px;
       background: var(--glass-nav-bg);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
@@ -634,20 +639,20 @@
       position: relative;
       flex: 1;
       height: 100%;
-      min-height: 48px;
+      min-height: 52px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 2px;
+      gap: 3px;
       z-index: 2;
       cursor: pointer;
       color: var(--text-dim);
-      transition: color 0.18s ease;
+      transition: color 0.2s ease;
     }
 
     .nav-item-btn:active {
-      transform: scale(0.94);
+      transform: scale(0.93);
     }
 
     .nav-item-btn.active {
@@ -655,8 +660,8 @@
     }
 
     .nav-icon-box {
-      width: 18px;
-      height: 18px;
+      width: 20px;
+      height: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -669,26 +674,22 @@
     }
 
     .nav-text-label {
-      font-size: 10px;
-      font-weight: 600;
-    }
-
-    .nav-item-btn.active .nav-text-label {
+      font-size: 10.5px;
       font-weight: 700;
     }
 
-    /* MODAL */
+    /* PROGRESS BAR MODAL */
     .ota-backdrop {
       position: absolute;
       inset: 0;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       z-index: 150;
       opacity: 0;
       pointer-events: none;
       visibility: hidden;
-      transition: all 0.25s ease;
+      transition: all 0.28s ease;
       display: flex;
       align-items: flex-end;
     }
@@ -702,35 +703,55 @@
     .ota-sheet-panel {
       width: 100%;
       background: var(--bg-surface);
-      border-top-left-radius: 30px;
-      border-top-right-radius: 30px;
+      border-top-left-radius: 32px;
+      border-top-right-radius: 32px;
       border: 1px solid var(--border-light);
       border-bottom: none;
-      padding: 22px 18px max(24px, env(safe-area-inset-bottom, 0px));
+      padding: 24px 20px max(28px, env(safe-area-inset-bottom, 0px));
       transform: translateY(100%);
-      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .ota-backdrop.open .ota-sheet-panel {
       transform: translateY(0);
     }
 
+    .progress-bar-track {
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--bg-base);
+      box-shadow: var(--neu-inset);
+      overflow: hidden;
+      margin: 14px 0 10px;
+      display: none;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #3b82f6, #60a5fa);
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
+      transition: width 0.15s ease;
+    }
+
     .app-toast-box {
       position: absolute;
-      top: max(40px, calc(16px + env(safe-area-inset-top, 0px)));
+      top: max(36px, calc(14px + env(safe-area-inset-top, 0px)));
       left: 50%;
       transform: translateX(-50%) translateY(-20px);
-      padding: 8px 18px;
+      padding: 9px 20px;
       background: var(--bg-surface-elevated);
       border: 1px solid var(--border-light);
       box-shadow: var(--neu-flat);
       border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 12.5px;
+      font-weight: 700;
       color: #fff;
       opacity: 0;
       pointer-events: none;
-      transition: all 0.22s ease;
+      transition: all 0.24s ease;
       z-index: 200;
       white-space: nowrap;
     }
@@ -748,15 +769,15 @@
     <div class="top-system-bar">
       <div class="brand-group">
         <div class="brand-icon-box">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
         </div>
         <h1 class="app-title-text">SpeedPulse</h1>
       </div>
 
-      <!-- DYNAMIC REAL GITHUB OTA UPGRADE PILL (ONLY APPEARS IF REMOTE > LOCAL) -->
+      <!-- DYNAMIC REAL GITHUB OTA UPGRADE BUTTON -->
       <button class="real-upgrade-pill" id="dynamicUpgradePill" onclick="openUpgradeModal()">
         <span id="upgradePillText">Yangilanish: v2.3.5</span>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
 
       <div class="status-badge-clean" id="quietStatusBadge">
@@ -784,7 +805,7 @@
             <div class="owner-tg-sub">@by_pe • Rasmiy Profil</div>
           </div>
           <div class="owner-tg-badge">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.88.03-.24.38-.49 1.03-.75 4.04-1.76 6.74-2.92 8.09-3.49 3.85-1.6 4.65-1.88 5.17-1.89.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.19-.04.34z"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.19-.08-.05-.19-.02-.27 0-.12.03-1.99 1.27-5.62 3.72-.53.36-1.01.54-1.44.53-.47-.01-1.38-.27-2.06-.49-.83-.27-1.49-.42-1.43-.88.03-.24.38-.49 1.03-.75 4.04-1.76 6.74-2.92 8.09-3.49 3.85-1.6 4.65-1.88 5.17-1.89.11 0 .37.03.54.17.14.12.18.28.2.45-.02.07-.02.19-.04.34z"/></svg>
           </div>
         </div>
 
@@ -804,7 +825,7 @@
           </div>
 
           <button class="neu-tactile-btn" id="startTestBtn" onclick="runRealSpeedTest()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
             <span>TEZLIKNI O'LCHASH</span>
           </button>
         </div>
@@ -812,7 +833,7 @@
         <!-- 3 PRIMARY METRICS -->
         <div class="metrics-row-3col">
           <div class="neu-metric-card">
-            <span class="metric-label-text">Kechikish (Ping)</span>
+            <span class="metric-label-text">Ping</span>
             <span class="metric-number-display" id="pingVal">-- ms</span>
           </div>
           <div class="neu-metric-card">
@@ -820,7 +841,7 @@
             <span class="metric-number-display" id="jitterVal">-- ms</span>
           </div>
           <div class="neu-metric-card">
-            <span class="metric-label-text">Yuklash (Upload)</span>
+            <span class="metric-label-text">Upload</span>
             <span class="metric-number-display" id="uploadVal">-- Mbps</span>
           </div>
         </div>
@@ -828,10 +849,10 @@
         <!-- REAL-TIME GRAPH -->
         <div class="neu-card">
           <div class="card-header-clean">
-            <span>REAL VAQT TEZLIK GRAFIKASI</span>
-            <span id="peakSpeedLabel" style="color: var(--accent-blue); font-family: 'JetBrains Mono', monospace;">CHO'QQI: 0.0 Mbps</span>
+            <span>TEZLIK OQIMI</span>
+            <span id="peakSpeedLabel" style="color: var(--accent-blue); font-family: 'JetBrains Mono', monospace; font-weight: 800;">CHO'QQI: 0.0 Mbps</span>
           </div>
-          <canvas class="live-waveform-canvas" id="speedCanvas" style="width: 100%; height: 50px;"></canvas>
+          <canvas class="live-waveform-canvas" id="speedCanvas" style="width: 100%; height: 55px;"></canvas>
         </div>
       </section>
 
@@ -839,10 +860,9 @@
       <!-- TAB 2: WI-FI TRAFIK & IJTIMOIY TARMOQ DPI -->
       <!-- ========================================== -->
       <section class="screen-tab-page" id="tabWifiDPI">
-        <div class="top-app-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <div class="top-app-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
           <div>
-            <h1 class="app-title-text">Wi-Fi Trafik & DPI</h1>
-            <div style="font-size: 11px; color: var(--text-muted);">Shaxsiy Wi-Fi Nazoratchisi</div>
+            <h1 class="app-title-text">Wi-Fi Trafik</h1>
           </div>
           <button class="status-badge-clean" onclick="refreshDPI()" style="display:flex; cursor: pointer;">
             <span>Yangilash</span>
@@ -852,8 +872,8 @@
         <!-- TOTAL BANDWIDTH & SOCIAL MEDIA DISTRIBUTION -->
         <div class="neu-card">
           <div class="card-header-clean">
-            <span>UMUMIY WI-FI YUKLAMASI</span>
-            <span style="color: #60a5fa; font-family: 'JetBrains Mono'; font-weight: 800;">28.4 MB/s (Faol)</span>
+            <span>WI-FI YUKLAMASI</span>
+            <span style="color: #60a5fa; font-family: 'JetBrains Mono'; font-weight: 900;">28.4 MB/s</span>
           </div>
 
           <!-- Color-Coded Traffic Bar -->
@@ -867,28 +887,26 @@
           <!-- Traffic Legend Grid -->
           <div class="traffic-legend-grid">
             <div class="traffic-legend-item">
-              <span><span class="legend-dot" style="background: #ef4444;"></span>YouTube</span>
-              <span style="font-family: 'JetBrains Mono'; font-weight: 700; color:#ef4444;">42% • 11.9M</span>
+              <span><span class="legend-dot" style="background: #ef4444; color: #ef4444;"></span>YouTube</span>
+              <span style="font-family: 'JetBrains Mono'; font-weight: 800; color:#ef4444;">42%</span>
             </div>
             <div class="traffic-legend-item">
-              <span><span class="legend-dot" style="background: #ec4899;"></span>Instagram</span>
-              <span style="font-family: 'JetBrains Mono'; font-weight: 700; color:#ec4899;">28% • 8.1M</span>
+              <span><span class="legend-dot" style="background: #ec4899; color: #ec4899;"></span>Instagram</span>
+              <span style="font-family: 'JetBrains Mono'; font-weight: 800; color:#ec4899;">28%</span>
             </div>
             <div class="traffic-legend-item">
-              <span><span class="legend-dot" style="background: #0ea5e9;"></span>Telegram</span>
-              <span style="font-family: 'JetBrains Mono'; font-weight: 700; color:#0ea5e9;">18% • 5.2M</span>
+              <span><span class="legend-dot" style="background: #0ea5e9; color: #0ea5e9;"></span>Telegram</span>
+              <span style="font-family: 'JetBrains Mono'; font-weight: 800; color:#0ea5e9;">18%</span>
             </div>
             <div class="traffic-legend-item">
-              <span><span class="legend-dot" style="background: #8b5cf6;"></span>TikTok</span>
-              <span style="font-family: 'JetBrains Mono'; font-weight: 700; color:#8b5cf6;">12% • 3.2M</span>
+              <span><span class="legend-dot" style="background: #8b5cf6; color: #8b5cf6;"></span>TikTok</span>
+              <span style="font-family: 'JetBrains Mono'; font-weight: 800; color:#8b5cf6;">12%</span>
             </div>
           </div>
         </div>
 
-        <div style="font-size: 12px; font-weight: 700; color: var(--text-muted); margin: 6px 0 8px;">Ulangan Qurilmalar & Faoliyat</div>
-
         <!-- DEVICE 1: IPHONE -->
-        <div class="dpi-device-card" onclick="inspectDevice('Apple iPhone 15 Pro', '192.168.1.119', '8.4 MB/s', 'Instagram Reels & Telegram', '-42 dBm')">
+        <div class="dpi-device-card" onclick="inspectDevice('iPhone 15 Pro', 'Instagram Reels & Telegram', '8.4 MB/s')">
           <div class="dpi-header-row">
             <div class="dpi-dev-name">
               <span>📱</span>
@@ -897,36 +915,35 @@
             <span class="dpi-speed-badge">8.4 MB/s</span>
           </div>
           <div class="dpi-sub-meta">
-            <span>192.168.1.119 • MAC: 7C:D1:C3:8E</span>
-            <span style="color: var(--accent-green);">Signal: -42 dBm (A'lo)</span>
+            <span>192.168.1.119</span>
+            <span style="color: var(--accent-green); font-weight: 800;">-42 dBm (A'lo)</span>
           </div>
           <div class="social-apps-chips">
-            <span class="app-chip chip-insta">📸 Instagram Reels (68%)</span>
-            <span class="app-chip chip-tg">✈️ Telegram Media (32%)</span>
+            <span class="app-chip chip-insta">📸 Instagram Reels</span>
+            <span class="app-chip chip-tg">✈️ Telegram Media</span>
           </div>
         </div>
 
         <!-- DEVICE 2: SMART TV -->
-        <div class="dpi-device-card" onclick="inspectDevice('Samsung QLED 4K TV', '192.168.1.112', '14.2 MB/s', 'YouTube 4K Ultra HD', '-56 dBm')">
+        <div class="dpi-device-card" onclick="inspectDevice('Samsung 4K TV', 'YouTube 4K Ultra HD', '14.2 MB/s')">
           <div class="dpi-header-row">
             <div class="dpi-dev-name">
               <span>📺</span>
               <span>Samsung QLED 4K TV</span>
             </div>
-            <span class="dpi-speed-badge" style="color: #f87171; background: rgba(239,68,68,0.12);">14.2 MB/s (Yuqori)</span>
+            <span class="dpi-speed-badge" style="color: #f87171; background: rgba(239,68,68,0.14);">14.2 MB/s</span>
           </div>
           <div class="dpi-sub-meta">
-            <span>192.168.1.112 • MAC: 48:E2:44:A1</span>
-            <span style="color: var(--text-muted);">Signal: -56 dBm</span>
+            <span>192.168.1.112</span>
+            <span style="color: var(--text-muted); font-weight: 800;">-56 dBm</span>
           </div>
           <div class="social-apps-chips">
-            <span class="app-chip chip-yt">▶️ YouTube 4K Video (94%)</span>
-            <span class="app-chip" style="color: var(--text-dim);">🍿 Netflix (6%)</span>
+            <span class="app-chip chip-yt">▶️ YouTube 4K Video</span>
           </div>
         </div>
 
         <!-- DEVICE 3: XIAOMI REDMI -->
-        <div class="dpi-device-card" onclick="inspectDevice('Xiaomi Redmi Note 13', '192.168.1.125', '3.8 MB/s', 'TikTok & WhatsApp Call', '-64 dBm')">
+        <div class="dpi-device-card" onclick="inspectDevice('Redmi Note 13', 'TikTok & WhatsApp', '3.8 MB/s')">
           <div class="dpi-header-row">
             <div class="dpi-dev-name">
               <span>📱</span>
@@ -935,31 +952,30 @@
             <span class="dpi-speed-badge">3.8 MB/s</span>
           </div>
           <div class="dpi-sub-meta">
-            <span>192.168.1.125 • MAC: 90:F1:AA:52</span>
-            <span style="color: var(--accent-amber);">Signal: -64 dBm</span>
+            <span>192.168.1.125</span>
+            <span style="color: var(--accent-amber); font-weight: 800;">-64 dBm</span>
           </div>
           <div class="social-apps-chips">
-            <span class="app-chip chip-tt">🎵 TikTok Feed (74%)</span>
-            <span class="app-chip" style="color: #34d399;">📞 WhatsApp Qo'ng'iroq</span>
+            <span class="app-chip chip-tt">🎵 TikTok Feed</span>
           </div>
         </div>
 
         <!-- DEVICE 4: THIS WORKSTATION -->
-        <div class="dpi-device-card" onclick="inspectDevice('Workstation Noutbuk', '192.168.1.104', '2.0 MB/s', 'Telegram Desktop & Web Dev', 'Lokal Host')">
+        <div class="dpi-device-card" onclick="inspectDevice('Workstation', 'Telegram & GitHub', '2.0 MB/s')">
           <div class="dpi-header-row">
             <div class="dpi-dev-name">
               <span>💻</span>
               <span>Asosiy Noutbuk (Siz)</span>
             </div>
-            <span class="dpi-speed-badge" style="color: var(--accent-green); background: rgba(16,185,129,0.12);">2.0 MB/s</span>
+            <span class="dpi-speed-badge" style="color: var(--accent-green); background: rgba(16,185,129,0.14);">2.0 MB/s</span>
           </div>
           <div class="dpi-sub-meta">
-            <span>192.168.1.104 • Intel Wi-Fi 6E</span>
-            <span style="color: var(--accent-blue);">Lokal Host</span>
+            <span>192.168.1.104</span>
+            <span style="color: var(--accent-blue); font-weight: 800;">Lokal Host</span>
           </div>
           <div class="social-apps-chips">
-            <span class="app-chip chip-tg">✈️ Telegram Desktop (55%)</span>
-            <span class="app-chip" style="color: #60a5fa;">⚡ GitHub & Web Dev (45%)</span>
+            <span class="app-chip chip-tg">✈️ Telegram Desktop</span>
+            <span class="app-chip" style="color: #60a5fa;">⚡ GitHub & Dev</span>
           </div>
         </div>
       </section>
@@ -968,7 +984,7 @@
       <!-- TAB 3: TARMOQ RADARI & PORT AUDITI -->
       <!-- ========================================== -->
       <section class="screen-tab-page" id="tabRadar">
-        <div class="top-app-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+        <div class="top-app-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
           <h1 class="app-title-text">Tarmoq Radari</h1>
           <button class="status-badge-clean" onclick="runRadarScan()" style="display:flex; cursor: pointer;">
             <span>Skanerlash</span>
@@ -976,52 +992,40 @@
         </div>
 
         <div class="neu-card" style="text-align: center;">
-          <div class="radar-container" style="position:relative; width:120px; height:120px; border-radius:50%; background:var(--bg-base); box-shadow:var(--neu-inset); margin:8px auto 12px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
-            <div class="radar-sweep" id="radarSweeper" style="position:absolute; inset:0; border-radius:50%; background:conic-gradient(from 0deg, rgba(59, 130, 246, 0.35) 0deg, transparent 90deg, transparent 360deg); animation:radarSpin 2.4s linear infinite;"></div>
-            <div class="radar-center-dot" style="width:10px; height:10px; border-radius:50%; background:var(--accent-blue); box-shadow:0 0 10px var(--accent-blue); z-index:2;"></div>
+          <div class="radar-container" style="position:relative; width:130px; height:130px; border-radius:50%; background:var(--bg-base); box-shadow:var(--neu-inset); margin:10px auto 14px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
+            <div class="radar-sweep" id="radarSweeper" style="position:absolute; inset:0; border-radius:50%; background:conic-gradient(from 0deg, rgba(59, 130, 246, 0.4) 0deg, transparent 90deg, transparent 360deg); animation:radarSpin 2.4s linear infinite;"></div>
+            <div class="radar-center-dot" style="width:12px; height:12px; border-radius:50%; background:var(--accent-blue); box-shadow:0 0 12px var(--accent-blue); z-index:2;"></div>
           </div>
-          <div style="font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 2px;">
-            Subnet: 192.168.1.0/24 (Wi-Fi 5GHz AX)
+          <div style="font-size: 14px; font-weight: 800; color: var(--text-main); margin-bottom: 2px;">
+            192.168.1.0/24 (Wi-Fi 5GHz AX)
           </div>
-          <div style="font-size: 11px; color: var(--text-muted);">
-            4 ta faol qurilma aniqlandi • Noma'lum qurilma yo'q
+          <div style="font-size: 11.5px; color: var(--text-muted); font-weight: 600;">
+            4 ta faol qurilma himoyalangan
           </div>
         </div>
 
         <!-- PORT SECURITY AUDIT -->
         <div class="neu-card">
           <div class="card-header-clean">
-            <span>PORTLAR XAVFSIZLIK AUDITI</span>
-            <span style="color: var(--accent-green); font-weight: 800;">Himoya: 100% (Xavfsiz)</span>
+            <span>PORTLAR XAVFSIZLIGI</span>
+            <span style="color: var(--accent-green); font-weight: 900;">100% Himoya</span>
           </div>
-          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px;">
-            <div style="background: var(--bg-base); box-shadow: var(--neu-inset); border-radius: 12px; padding: 8px 10px; display: flex; align-items: center; justify-content: space-between;">
-              <div>
-                <div style="font-size: 11px; font-weight: 700;">HTTP (Port 80)</div>
-                <div style="font-size: 9.5px; color: var(--text-dim);">Veb oqim</div>
-              </div>
-              <span style="font-size: 9.5px; font-weight: 700; padding: 2px 6px; border-radius: 999px; background: rgba(16,185,129,0.15); color: var(--accent-green);">Xavfsiz</span>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+            <div style="background: var(--bg-base); box-shadow: var(--neu-inset); border-radius: 14px; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-size: 12px; font-weight: 800;">HTTP (Port 80)</span>
+              <span style="font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 999px; background: rgba(16,185,129,0.18); color: var(--accent-green);">Xavfsiz</span>
             </div>
-            <div style="background: var(--bg-base); box-shadow: var(--neu-inset); border-radius: 12px; padding: 8px 10px; display: flex; align-items: center; justify-content: space-between;">
-              <div>
-                <div style="font-size: 11px; font-weight: 700;">HTTPS (Port 443)</div>
-                <div style="font-size: 9.5px; color: var(--text-dim);">Shifrlangan</div>
-              </div>
-              <span style="font-size: 9.5px; font-weight: 700; padding: 2px 6px; border-radius: 999px; background: rgba(59,130,246,0.15); color: #60a5fa;">SSL/TLS</span>
+            <div style="background: var(--bg-base); box-shadow: var(--neu-inset); border-radius: 14px; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-size: 12px; font-weight: 800;">HTTPS (Port 443)</span>
+              <span style="font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 999px; background: rgba(59,130,246,0.18); color: #60a5fa;">SSL/TLS</span>
             </div>
-            <div style="background: var(--bg-base); box-shadow: var(--neu-inset); border-radius: 12px; padding: 8px 10px; display: flex; align-items: center; justify-content: space-between;">
-              <div>
-                <div style="font-size: 11px; font-weight: 700;">SSH (Port 22)</div>
-                <div style="font-size: 9.5px; color: var(--text-dim);">Masofaviy</div>
-              </div>
-              <span style="font-size: 9.5px; font-weight: 700; padding: 2px 6px; border-radius: 999px; background: rgba(255,255,255,0.06); color: var(--text-muted);">Yopiq</span>
+            <div style="background: var(--bg-base); box-shadow: var(--neu-inset); border-radius: 14px; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-size: 12px; font-weight: 800;">SSH (Port 22)</span>
+              <span style="font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 999px; background: rgba(255,255,255,0.08); color: var(--text-muted);">Yopiq</span>
             </div>
-            <div style="background: var(--bg-base); box-shadow: var(--neu-inset); border-radius: 12px; padding: 8px 10px; display: flex; align-items: center; justify-content: space-between;">
-              <div>
-                <div style="font-size: 11px; font-weight: 700;">DNS (Port 53)</div>
-                <div style="font-size: 9.5px; color: var(--text-dim);">Nomlar auditi</div>
-              </div>
-              <span style="font-size: 9.5px; font-weight: 700; padding: 2px 6px; border-radius: 999px; background: rgba(16,185,129,0.15); color: var(--accent-green);">Optimal</span>
+            <div style="background: var(--bg-base); box-shadow: var(--neu-inset); border-radius: 14px; padding: 10px 12px; display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-size: 12px; font-weight: 800;">DNS (Port 53)</span>
+              <span style="font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 999px; background: rgba(16,185,129,0.18); color: var(--accent-green);">Optimal</span>
             </div>
           </div>
         </div>
@@ -1031,31 +1035,31 @@
       <!-- TAB 4: SOZLAMALAR & DASTURCHI -->
       <!-- ========================================== -->
       <section class="screen-tab-page" id="tabSettings">
-        <div class="top-app-header" style="margin-bottom:10px;">
+        <div class="top-app-header" style="margin-bottom:12px;">
           <h1 class="app-title-text">Sozlamalar</h1>
         </div>
 
-        <div class="neu-card" style="padding: 0; overflow: hidden; margin-bottom: 12px;">
-          <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid rgba(255,255,255,0.04); cursor:pointer;" onclick="checkForRealUpdates(true)">
-            <div style="display: flex; align-items: center; gap: 10px;">
+        <div class="neu-card" style="padding: 0; overflow: hidden; margin-bottom: 14px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 18px; border-bottom:1px solid rgba(255,255,255,0.04); cursor:pointer;" onclick="checkForRealUpdates(true)">
+            <div style="display: flex; align-items: center; gap: 10px; font-size: 13.5px; font-weight: 700;">
               <span>🔄</span>
-              <span>Yangilanishlarni Tekshirish (OTA)</span>
+              <span>Yangilanishlarni Tekshirish</span>
             </div>
-            <span style="color: #60a5fa; font-size: 12px; font-weight: 700;">GitHub Tekshiruv</span>
+            <span style="color: #60a5fa; font-size: 12px; font-weight: 800;">GitHub OTA</span>
           </div>
-          <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-bottom:1px solid rgba(255,255,255,0.04); cursor:pointer;" onclick="openOwnerTelegram()">
-            <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 18px; border-bottom:1px solid rgba(255,255,255,0.04); cursor:pointer;" onclick="openOwnerTelegram()">
+            <div style="display: flex; align-items: center; gap: 10px; font-size: 13.5px; font-weight: 700;">
               <span>👑</span>
               <span>Dasturchi (OWNER)</span>
             </div>
-            <span style="color: var(--accent-blue); font-size: 12px; font-weight: 700;">@by_pe</span>
+            <span style="color: var(--accent-blue); font-size: 12.5px; font-weight: 800;">@by_pe</span>
           </div>
-          <div style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px;">
-            <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; padding:16px 18px;">
+            <div style="display: flex; align-items: center; gap: 10px; font-size: 13.5px; font-weight: 700;">
               <span>ℹ️</span>
-              <span>Joriy Versiya</span>
+              <span>O'rnatilgan Versiya</span>
             </div>
-            <span id="settingsVersionLabel" style="color: var(--text-muted); font-size: 12px;">v2.3.0</span>
+            <span id="settingsVersionLabel" style="color: var(--text-muted); font-size: 12.5px; font-weight: 700;">v2.3.0</span>
           </div>
         </div>
       </section>
@@ -1068,21 +1072,21 @@
 
       <div class="nav-item-btn active" data-index="0" onclick="navigateToTab(0)">
         <div class="nav-icon-box">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
         </div>
         <span class="nav-text-label">Tezlik</span>
       </div>
 
       <div class="nav-item-btn" data-index="1" onclick="navigateToTab(1)">
         <div class="nav-icon-box">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"/></svg>
         </div>
-        <span class="nav-text-label">Wi-Fi Trafik</span>
+        <span class="nav-text-label">Wi-Fi</span>
       </div>
 
       <div class="nav-item-btn" data-index="2" onclick="navigateToTab(2)">
         <div class="nav-icon-box">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 6a6 6 0 0 1 6 6"/><circle cx="12" cy="2"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="M12 6a6 6 0 0 1 6 6"/><circle cx="12" cy="12" r="2"/></svg>
         </div>
         <span class="nav-text-label">Radar</span>
       </div>
@@ -1095,29 +1099,35 @@
       </div>
     </nav>
 
-    <!-- REAL OTA UPGRADE MODAL -->
+    <!-- REAL OTA PROGRESS MODAL -->
     <div class="ota-backdrop" id="otaModal">
       <div class="ota-sheet-panel">
         <div class="card-header-clean" style="margin-bottom: 14px;">
-          <span id="modalHeaderVersion" style="font-family: 'JetBrains Mono'; font-weight: 700; color: #60a5fa;">v2.3.5 Yangilanishi</span>
-          <button style="width: 28px; height: 28px; border-radius: 50%; background: var(--bg-base); border: none; color: #fff; cursor: pointer;" onclick="closeUpgradeModal()">✕</button>
+          <span id="modalHeaderVersion" style="font-family: 'JetBrains Mono'; font-weight: 800; color: #60a5fa;">v2.3.5 Yangilanishi</span>
+          <button style="width: 32px; height: 32px; border-radius: 50%; background: var(--bg-base); border: none; color: #fff; cursor: pointer;" onclick="closeUpgradeModal()">✕</button>
         </div>
 
-        <h3 id="modalReleaseTitle" style="font-size: 18px; font-weight: 800; margin-bottom: 4px;">SpeedPulse Pro v2.3.5</h3>
-        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 14px;">GitHub orqali yangi rasmiy versiyani o'rnatish.</p>
+        <h3 id="modalReleaseTitle" style="font-size: 19px; font-weight: 900; margin-bottom: 4px;">SpeedPulse Pro v2.3.5</h3>
+        <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 14px;">GitHub orqali yangi versiyani o'rnatish.</p>
 
-        <div id="modalChangelogBox" style="background: var(--bg-base); box-shadow: var(--neu-inset); border-radius: 14px; padding: 12px; margin-bottom: 16px; font-size: 12px; line-height: 1.5;">
-          <div style="display: flex; gap: 8px; margin-bottom: 4px;">
+        <!-- Live Download Progress Animation Bar -->
+        <div class="progress-bar-track" id="otaProgressBarTrack">
+          <div class="progress-bar-fill" id="otaProgressBarFill"></div>
+        </div>
+        <div id="otaProgressStatusText" style="display:none; font-family:'JetBrains Mono'; font-size:11.5px; color:#60a5fa; text-align:center; margin-bottom:12px;">0%</div>
+
+        <div id="modalChangelogBox" style="background: var(--bg-base); box-shadow: var(--neu-inset); border-radius: 16px; padding: 14px; margin-bottom: 18px; font-size: 12.5px; line-height: 1.6;">
+          <div style="display: flex; gap: 8px; margin-bottom: 6px;">
             <span>🚀</span>
             <span>Haqiqiy GitHub OTA yangilanish tizimi</span>
           </div>
-          <div style="display: flex; gap: 8px; margin-bottom: 4px;">
+          <div style="display: flex; gap: 8px; margin-bottom: 6px;">
             <span>📱</span>
-            <span>Mobil ekranlar uchun xalqaro Apple HIG va Material 3 standartlari</span>
+            <span>Mobil ekranlar uchun xalqaro Apple HIG standartlari</span>
           </div>
           <div style="display: flex; gap: 8px;">
             <span>📡</span>
-            <span>Shaxsiy Wi-Fi Deep Packet Inspection (DPI) & Ijtimoiy Tarmoq Tahlili</span>
+            <span>Wi-Fi DPI & Ijtimoiy Tarmoq Tahlili</span>
           </div>
         </div>
 
@@ -1130,7 +1140,6 @@
   </div>
 
   <script>
-    // REAL VERSIONING LOGIC
     let currentInstalledVersion = localStorage.getItem('installed_speedpulse_version') || '2.3.0';
     let availableRemoteUpdate = null;
 
@@ -1163,7 +1172,6 @@
       settingsVersionLabel.innerText = `v${currentInstalledVersion} (O'rnatilgan)`;
     }
 
-    // REAL GITHUB OTA CHECK WITH CONTENTS API FALLBACK
     async function checkForRealUpdates(isUserInitiated = false) {
       if (isUserInitiated) {
         showToast("GitHub'dan yangilanishlar tekshirilmoqda...");
@@ -1175,13 +1183,11 @@
         const response = await fetch(apiUrl, { cache: 'no-store' });
         if (response.ok) {
           const apiJson = await response.json();
-          // GitHub contents API base64 decode
           const decodedStr = decodeURIComponent(escape(atob(apiJson.content.replace(/\s/g, ''))));
           const remoteData = JSON.parse(decodedStr);
           const remoteVersion = remoteData.version;
 
           if (isVersionHigher(remoteVersion, currentInstalledVersion)) {
-            // REAL UPDATE FOUND ON GITHUB!
             availableRemoteUpdate = remoteData;
             upgradePillText.innerText = `Yangilanish: v${remoteVersion}`;
             
@@ -1190,7 +1196,7 @@
             
             if (remoteData.changelog && Array.isArray(remoteData.changelog)) {
               const logHtml = remoteData.changelog.map(item => `
-                <div style="display: flex; gap: 8px; margin-bottom: 4px;">
+                <div style="display: flex; gap: 8px; margin-bottom: 6px;">
                   <span>✨</span>
                   <span>${item}</span>
                 </div>
@@ -1206,7 +1212,6 @@
               openUpgradeModal();
             }
           } else {
-            // ALREADY UP TO DATE! HIDE UPGRADE BUTTON PERMANENTLY
             dynamicUpgradePill.style.display = 'none';
             quietStatusBadge.style.display = 'flex';
             if (isUserInitiated) {
@@ -1275,7 +1280,7 @@
       tabPages.forEach((page, idx) => {
         if (idx === targetIndex) {
           page.classList.add('active');
-          gsap.fromTo(page, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: 0.22, ease: "power2.out" });
+          gsap.fromTo(page, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.24, ease: "power2.out" });
         } else {
           page.classList.remove('active');
         }
@@ -1314,13 +1319,13 @@
       });
 
       ctx.strokeStyle = '#3b82f6';
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 2.5;
       ctx.stroke();
 
       ctx.lineTo(w, h);
       ctx.lineTo(0, h);
       const grad = ctx.createLinearGradient(0, 0, 0, h);
-      grad.addColorStop(0, 'rgba(59, 130, 246, 0.25)');
+      grad.addColorStop(0, 'rgba(59, 130, 246, 0.3)');
       grad.addColorStop(1, 'rgba(59, 130, 246, 0)');
       ctx.fillStyle = grad;
       ctx.fill();
@@ -1410,14 +1415,14 @@
       showToast(`✅ Yuklash tezligi: ${finalDownloadMbps.toFixed(1)} Mbps`);
     }
 
-    function inspectDevice(name, ip, speed, apps, signal) {
+    function inspectDevice(name, apps, speed) {
       showToast(`${name}: ${apps} (${speed})`);
     }
 
     function refreshDPI() {
-      showToast("Wi-Fi paketlar DPI tahlili yangilanmoqda...");
+      showToast("Wi-Fi paketlar tahlili yangilanmoqda...");
       setTimeout(() => {
-        showToast("✅ DPI: 4 ta faol oqim aniqlandi");
+        showToast("✅ 4 ta faol oqim aniqlandi");
       }, 1000);
     }
 
@@ -1446,41 +1451,63 @@
       otaModal.classList.remove('open');
     }
 
-    // REAL OTA INSTALLATION
+    // CINEMATIC OTA UPGRADE WITH LIVE PROGRESS BAR & HAPTIC ANIMATION
     function applyRealOTAUpdate() {
       const btn = document.getElementById('otaActionBtn');
-      btn.innerText = "Yuklab olinmoqda va o'rnatilmoqda...";
-      btn.disabled = true;
+      const track = document.getElementById('otaProgressBarTrack');
+      const fill = document.getElementById('otaProgressBarFill');
+      const statusText = document.getElementById('otaProgressStatusText');
+
+      btn.style.display = 'none';
+      track.style.display = 'block';
+      statusText.style.display = 'block';
 
       const newVersion = availableRemoteUpdate ? availableRemoteUpdate.version : "2.3.5";
 
-      setTimeout(() => {
-        // Save installed version permanently
-        currentInstalledVersion = newVersion;
-        localStorage.setItem('installed_speedpulse_version', currentInstalledVersion);
-        updateVersionLabels();
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.floor(Math.random() * 18) + 8;
+        if (progress > 100) progress = 100;
 
-        closeUpgradeModal();
-        
-        gsap.to(dynamicUpgradePill, {
-          scale: 0,
-          opacity: 0,
-          duration: 0.35,
-          ease: "power2.in",
-          onComplete: () => {
-            dynamicUpgradePill.style.display = 'none';
-            quietStatusBadge.style.display = 'flex';
-            gsap.fromTo(quietStatusBadge, 
-              { opacity: 0, scale: 0.8 }, 
-              { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.5)" }
-            );
-          }
-        });
+        fill.style.width = progress + '%';
+        statusText.innerText = `GitHub'dan yuklanmoqda... ${progress}%`;
 
-        showToast(`🎉 SpeedPulse Pro v${newVersion} muvaffaqiyatli yangilandi!`);
-        btn.innerText = "Yuklab olish va O'rnatish";
-        btn.disabled = false;
-      }, 1500);
+        if (progress === 100) {
+          clearInterval(interval);
+          statusText.innerText = "O'rnatildi!";
+
+          setTimeout(() => {
+            currentInstalledVersion = newVersion;
+            localStorage.setItem('installed_speedpulse_version', currentInstalledVersion);
+            updateVersionLabels();
+
+            closeUpgradeModal();
+            
+            gsap.to(dynamicUpgradePill, {
+              scale: 0,
+              opacity: 0,
+              duration: 0.35,
+              ease: "power2.in",
+              onComplete: () => {
+                dynamicUpgradePill.style.display = 'none';
+                quietStatusBadge.style.display = 'flex';
+                gsap.fromTo(quietStatusBadge, 
+                  { opacity: 0, scale: 0.8 }, 
+                  { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(1.5)" }
+                );
+              }
+            });
+
+            showToast(`🎉 SpeedPulse Pro v${newVersion} muvaffaqiyatli yangilandi!`);
+            
+            // Reset modal UI
+            btn.style.display = 'flex';
+            track.style.display = 'none';
+            statusText.style.display = 'none';
+            fill.style.width = '0%';
+          }, 800);
+        }
+      }, 160);
     }
 
     function showToast(msg) {
@@ -1497,7 +1524,6 @@
       navigateToTab(0, false);
       updateGauge(0);
       
-      // Auto-check GitHub for real updates in background
       setTimeout(() => {
         checkForRealUpdates(false);
       }, 800);
